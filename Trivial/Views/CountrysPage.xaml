@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Trivial.Views.CountrysPage"
+             Title="CountrysPage"
+             Shell.NavBarIsVisible="False">
+    <Grid>
+        <Image
+            Source="europe.jpg"
+            Aspect="AspectFill"
+            Opacity="0.8"
+            />
+        <StackLayout
+            Padding="30"
+            Spacing="30"
+            VerticalOptions="Center"
+            HorizontalOptions="Center">
+            <Label 
+                Text="¿Cual es la capital de ...?"
+                FontSize="42"
+                FontAttributes="Bold"
+                FontFamily="BestQualityRegular"
+                TextColor="Black"
+                />
+            <Button
+                x:Name="btnOne"
+                Text="Respuesta 1"
+                Clicked="OnClickAnswer" />
+            <Button
+                x:Name="btnTwo"
+                Text="Respuesta 2"
+                Clicked="OnClickAnswer" />
+            <Button
+                x:Name="btnThree"
+                Text="Respuesta 3"
+                Clicked="OnClickAnswer" />
+            <Button
+                x:Name="btnFour"
+                Text="Respuesta 4"
+                Clicked="OnClickAnswer" />
+        </StackLayout>
+    </Grid>
+</ContentPage>
