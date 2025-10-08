@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Trivial.MainPage">
+
+    <Grid>
+        <Image
+            Source="europe.jpg"
+            Aspect="AspectFill"
+            Opacity="0.8"
+            />
+        <StackLayout
+            Padding="30"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Spacing="25">
+            <Label
+                Text="Trivial Geográfico de Europa"
+                FontSize="36"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                TextColor="Black"
+                SemanticProperties.HeadingLevel="Level1"/>
+            <Button
+                Text="Capitales"
+                Clicked="OnCapitalsClicked"
+                BackgroundColor="CadetBlue"/>
+            <Button
+                Text="Paises"
+                Clicked="OnCountrysClicked"
+                BackgroundColor="Crimson"/>
+        </StackLayout>
+    </Grid>
+
+
+</ContentPage>
