@@ -17,5 +17,10 @@
                 "Eslovaquia", "Eslovenia", "España", "Estonia", "Finlandia", "Francia", "Grecia", "Hungría", "Irlanda",
                 "Italia", "Letonia", "Lituania", "Luxemburgo", "Malta", "Países Bajos", "Polonia", "Portugal",
                 "Reino Unido", "Chéquia", "Rumanía", "Suecia" };
+
+        /// <summary>
+        /// Contains the real lenght (Starts at 0, not at 1) of the arrays of Capitals and Countrys
+        /// </summary>
+        public static readonly int CapitalsAndCountrysLength = Capitals.Length - 1;
     }
 }

@@ -16,6 +16,7 @@
             VerticalOptions="Center"
             HorizontalOptions="Center">
             <Label 
+                x:Name="txlQuestion"
                 Text="¿A que país pertenece ...?"
                 FontSize="42"
                 FontAttributes="Bold"
