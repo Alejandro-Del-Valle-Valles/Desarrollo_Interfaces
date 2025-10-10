@@ -93,7 +93,7 @@ public partial class CountrysPage : ContentPage
             do
             {
                 randomIndex = rn.Next(1, answers.Length);
-            } while (seatedAnswers.Contains(randomIndex)); //Prevents to hace the same country more times
+            } while (seatedAnswers.Contains(randomIndex)); //Prevents to show the same country more times
             seatedAnswers[i] = randomIndex;
         }
         btnOne.Text = answers[seatedAnswers[0]];
