@@ -1,19 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Biblioteca.MainPage">
+             x:Class="Biblioteca.Views.MainPage">
 
     <Grid
-        BackgroundColor="Beige">
+        BackgroundColor="{StaticResource BackgroundLight}">
         <Image
             Source="fondo.jpg"
             Aspect="AspectFill"
             />
         <Label
-            Text="Biblioteca ReyFernando VI"
+            Text="Biblioteca&#x0a;ReyFernando VI"
+            HorizontalTextAlignment="Center"
             FontSize="Header"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"/>
+            FontAttributes="Bold"
+            VerticalOptions="Start"
+            HorizontalOptions="Center" 
+            Padding="20"
+            Margin="20"/>
     </Grid>
 
 </ContentPage>

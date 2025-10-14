@@ -3,15 +3,33 @@
     x:Class="Biblioteca.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Biblioteca"
-    Title="Biblioteca">
+    xmlns:local="clr-namespace:Biblioteca.Views"
+    Title="Biblioteca"
+    Shell.TabBarBackgroundColor="{StaticResource BackgroundLight}"
+    Shell.TabBarTitleColor="Black"
+    Shell.TabBarUnselectedColor="Gray"
+    Shell.TabBarForegroundColor="Black">
     <TabBar>
+        
         <ShellContent
             Title="Principal"
-            Shell.TitleColor="Black"
-            Shell.BackgroundColor="Bisque"
+            Shell.TitleColor="{StaticResource TextPrimary}"
+            Shell.BackgroundColor="{StaticResource BackgroundLight}"
             ContentTemplate="{DataTemplate local:MainPage}"
-            Route="Views.MainPage" />
+            Route="MainPage" />
+        
+        <ShellContent
+            Title="Alta"
+            Shell.TitleColor="{StaticResource TextPrimary}"
+            Shell.BackgroundColor="{StaticResource BackgroundLight}"
+            ContentTemplate="{DataTemplate local:RegisterPage}"
+            Route="RegisterPage"/>
+        
+        <ShellContent
+            Title="Consulta"
+            Shell.TitleColor="{StaticResource TextPrimary}"
+            Shell.BackgroundColor="{StaticResource BackgroundLight}"
+            ContentTemplate="{DataTemplate local:ConsultationPage}"
+            Route="ConsultationPage"/>
     </TabBar>
-
 </Shell>
