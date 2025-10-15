@@ -5,30 +5,30 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Biblioteca.Views"
     Title="Biblioteca"
-    Shell.TabBarBackgroundColor="{StaticResource BackgroundLight}"
-    Shell.TabBarTitleColor="Black"
+    Shell.TabBarBackgroundColor="{StaticResource BackgroundDark}"
+    Shell.TabBarTitleColor="White"
     Shell.TabBarUnselectedColor="Gray"
     Shell.TabBarForegroundColor="Black">
     <TabBar>
         
         <ShellContent
             Title="Principal"
-            Shell.TitleColor="{StaticResource TextPrimary}"
-            Shell.BackgroundColor="{StaticResource BackgroundLight}"
+            Shell.TitleColor="White"
+            Shell.BackgroundColor="{StaticResource BackgroundDark}"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" />
         
         <ShellContent
             Title="Alta"
-            Shell.TitleColor="{StaticResource TextPrimary}"
-            Shell.BackgroundColor="{StaticResource BackgroundLight}"
+            Shell.TitleColor="White"
+            Shell.BackgroundColor="{StaticResource BackgroundDark}"
             ContentTemplate="{DataTemplate local:RegisterPage}"
             Route="RegisterPage"/>
         
         <ShellContent
             Title="Consulta"
-            Shell.TitleColor="{StaticResource TextPrimary}"
-            Shell.BackgroundColor="{StaticResource BackgroundLight}"
+            Shell.TitleColor="White"
+            Shell.BackgroundColor="{StaticResource BackgroundDark}"
             ContentTemplate="{DataTemplate local:ConsultationPage}"
             Route="ConsultationPage"/>
     </TabBar>

@@ -3,78 +3,153 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Biblioteca.Views.RegisterPage"
              Title="RegisterPage"
-             Shell.BackgroundColor="{StaticResource BackgroundLight}" >
-    <VerticalStackLayout
-        BackgroundColor="#F5F5F5" >
-        <!-- First Line -->
-        <HorizontalStackLayout
+             Shell.BackgroundColor="{StaticResource BackgroundDark}" >
+    <Grid
+        RowDefinitions="450, Auto"
+        ColumnDefinitions="*, Auto"
+        BackgroundColor="{StaticResource BackgroundLight}"
+        Padding="30">
+
+        <VerticalStackLayout
+            Grid.Column="0"
+            Spacing="10">
+            <!-- First Line -->
+            <HorizontalStackLayout
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Padding="30">
+
+                <Grid
+                    ColumnDefinitions="100, Auto"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Label
+                        Text="Título"
+                        TextColor="Black"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        Padding="10" 
+                        Margin="10"/>
+
+                    <Entry
+                        x:Name="etyTitle"
+                        Placeholder="Título del Libro"
+                        WidthRequest="250"
+                        BackgroundColor="{StaticResource BackgroundDark}"
+                        Grid.Column="1"
+                        Margin="10, 10, 0, 10"/>
+                </Grid>
+            </HorizontalStackLayout>
+
+            <!-- Second Line -->
+            <HorizontalStackLayout
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Padding="30">
+
+                <Grid
+                    ColumnDefinitions="100, Auto"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Label
+                        Text="Autor"
+                        TextColor="Black"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        Padding="10"
+                        Margin="10"/>
+
+                    <Entry
+                        x:Name="etyAuthor"
+                        Placeholder="Autor"
+                        WidthRequest="250"
+                        BackgroundColor="{StaticResource BackgroundDark}"
+                        Grid.Column="1"
+                        Margin="10, 10, 0, 10"/>
+                </Grid>
+            </HorizontalStackLayout>
+
+            <!-- Third Line -->
+            <HorizontalStackLayout
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Padding="30">
+
+                <Grid
+                    ColumnDefinitions="*, Auto"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Label
+                        Text="Editorial"
+                        TextColor="Black"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        HorizontalTextAlignment="End"
+                        Padding="10"
+                        Margin="10"/>
+
+                    <Entry
+                        x:Name="etyPublisher"
+                        Placeholder="Eitorial"
+                        WidthRequest="250"
+                        BackgroundColor="{StaticResource BackgroundDark}"
+                        Grid.Column="1"
+                        Margin="12, 10, 15, 10"/>
+                </Grid>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        <VerticalStackLayout
+            Grid.Column="1"
             HorizontalOptions="Center"
             VerticalOptions="Center"
-            Padding="30">
-            
+            Padding="0, 0, 50, 100"
+            Spacing="10">
+
             <Label
-                Text="Título"
-                TextColor="Black"
-                FontSize="18"
+                Text="Portada del Libro"
+                TextColor="{StaticResource PrimaryDarkText}"
+                FontSize="16"
                 FontAttributes="Bold"
-                Padding="10" 
-                HorizontalOptions="Center"
-                VerticalOptions="Center"/>
-            
-            <Entry
-                x:Name="etyTitle"
-                Placeholder="Título del Libro"
-                WidthRequest="250"
-                BackgroundColor="{StaticResource BackgroundDark}"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"/>
-        </HorizontalStackLayout>
-        
-        <!-- Second Line -->
-        <HorizontalStackLayout
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            Padding="30">
-            
-            <Label
-                Text="Autor"
-                TextColor="Black"
-                FontSize="18"
-                FontAttributes="Bold"
+                HorizontalOptions="Center" />
+
+            <Border
+                Stroke="{StaticResource BackgroundDark}"
+                StrokeThickness="2"
+                Background="{StaticResource BackgroundDark}"
                 Padding="10"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"/>
-
-            <Entry
-                x:Name="etyAuthor"
-                Placeholder="Título del Libro"
-                WidthRequest="250"
-                BackgroundColor="{StaticResource BackgroundDark}"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"/>
-        </HorizontalStackLayout>
-
-        <!-- Third Line -->
+                StrokeShape="RoundRectangle 8">
+                <Image
+                    x:Name="imgCover"
+                    Source=""
+                    Aspect="AspectFit"
+                    WidthRequest="200"
+                    HeightRequest="300" />
+            </Border>
+        </VerticalStackLayout>
         <HorizontalStackLayout
+            VerticalOptions="End"
             HorizontalOptions="Center"
-            VerticalOptions="Center"
-            Padding="30">
-            <Label
-                Text="Editorial"
-                TextColor="Black"
-                FontSize="18"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Spacing="325">
+            <Button
+                x:Name="btnSave"
+                Text="Guardar"
                 FontAttributes="Bold"
-                Padding="10"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"/>
-
-            <Entry
-                x:Name="etyPublisher"
-                Placeholder="Título del Libro"
-                WidthRequest="250"
-                BackgroundColor="{StaticResource BackgroundDark}"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"/>
+                BackgroundColor="{StaticResource SecondaryColor}"
+                Padding="30"/>
+            <Button
+                x:Name="btnClear"
+                Text="Limpiar"
+                FontAttributes="Bold"
+                BackgroundColor="{StaticResource ErrorColor}"
+                Padding="30"/>
+            <Button
+                x:Name="btnSelectImage"
+                Text="Seleccionar Imagen"
+                FontAttributes="Bold"
+                BackgroundColor="{StaticResource PrimaryColor}"
+                Padding="30"/>
         </HorizontalStackLayout>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
