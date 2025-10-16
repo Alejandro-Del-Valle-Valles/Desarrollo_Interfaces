@@ -120,7 +120,6 @@
                 StrokeShape="RoundRectangle 8">
                 <Image
                     x:Name="imgCover"
-                    Source=""
                     Aspect="AspectFit"
                     WidthRequest="200"
                     HeightRequest="300" />

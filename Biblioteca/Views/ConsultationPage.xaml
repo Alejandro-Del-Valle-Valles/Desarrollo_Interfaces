@@ -45,26 +45,18 @@
                 Padding="0, 0, 0, 30"/>
 
             <!-- Radio Buttons -->
-            <HorizontalStackLayout>
-                <RadioButton
-                    x:Name="rdbAuthor"/>
-                <Label
-                    Text="Autor"
-                    TextColor="Black"
-                    FontAttributes="Bold"/>
-            </HorizontalStackLayout>
+            <RadioButton
+                x:Name="rdbAuthor"
+                Content="Autor"
+                TextColor="Black"
+                IsChecked="True"/>
 
-            <HorizontalStackLayout
-                Padding="0, 0, 0, 50">
-                <RadioButton
-                    x:Name="rdbPublisher"/>
-                <Label
-                    Text="Editorial"
-                    TextColor="Black"
-                    FontAttributes="Bold"/>
-            </HorizontalStackLayout>
+            <RadioButton
+                x:Name="rdbPublisher"
+                Content="Editorial"
+                TextColor="Black"/>
 
-            <!-- Info of Publisher and Author -->
+                <!-- Info of Publisher and Author -->
             <Label
                 Text="Autor/Editorial"
                 TextColor="Black"
@@ -97,7 +89,6 @@
                 StrokeShape="RoundRectangle 8">
                 
                 <Image
-                    Source="imgCover"
                     Aspect="AspectFit"
                     WidthRequest="150"
                     HeightRequest="250" />
