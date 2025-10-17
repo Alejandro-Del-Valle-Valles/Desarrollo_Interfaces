@@ -23,6 +23,7 @@
                     ColumnDefinitions="100, Auto"
                     HorizontalOptions="Center"
                     VerticalOptions="Center">
+                    
                     <Label
                         Text="Título"
                         TextColor="Black"
@@ -79,6 +80,7 @@
                     ColumnDefinitions="*, Auto"
                     HorizontalOptions="Center"
                     VerticalOptions="Center">
+                    
                     <Label
                         Text="Editorial"
                         TextColor="Black"
@@ -118,11 +120,13 @@
                 Background="{StaticResource BackgroundDark}"
                 Padding="10"
                 StrokeShape="RoundRectangle 8">
+                
                 <Image
                     x:Name="imgCover"
                     Aspect="AspectFit"
                     WidthRequest="200"
                     HeightRequest="300" />
+                
             </Border>
         </VerticalStackLayout>
         <HorizontalStackLayout
@@ -131,20 +135,26 @@
             Grid.Row="1"
             Grid.ColumnSpan="2"
             Spacing="325">
+            
             <Button
                 x:Name="btnSave"
+                Clicked="onSaveClicked"
                 Text="Guardar"
                 FontAttributes="Bold"
                 BackgroundColor="{StaticResource SecondaryColor}"
                 Padding="30"/>
+            
             <Button
                 x:Name="btnClear"
+                Clicked="onCleanClicked"
                 Text="Limpiar"
                 FontAttributes="Bold"
                 BackgroundColor="{StaticResource ErrorColor}"
                 Padding="30"/>
+            
             <Button
                 x:Name="btnSelectImage"
+                Clicked="onSelectImageClicked"
                 Text="Seleccionar Imagen"
                 FontAttributes="Bold"
                 BackgroundColor="{StaticResource PrimaryColor}"

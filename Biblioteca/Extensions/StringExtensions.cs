@@ -40,5 +40,7 @@
             }
             return newString;
         }
+
+        public static bool IsNotEmpty(this string str) => str.Trim() != string.Empty;
     }
 }
