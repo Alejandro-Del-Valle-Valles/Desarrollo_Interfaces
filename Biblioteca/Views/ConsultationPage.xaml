@@ -21,12 +21,13 @@
                 Text="Título"
                 TextColor="Black"
                 FontAttributes="Bold"/>
-            
-            <Label
-                x:Name="lblTitle"
-                Text="Empty"
-                TextColor="Black"/>
-            
+
+            <VerticalStackLayout
+                x:Name="vslTitles"
+                Margin="10"
+                Padding="10">
+            </VerticalStackLayout>
+
         </VerticalStackLayout>
 
         <!-- Second Column: Author and Publisher of the Book -->
@@ -47,12 +48,15 @@
             <!-- Radio Buttons -->
             <RadioButton
                 x:Name="rdbAuthor"
+                Value="Author"
                 Content="Autor"
                 TextColor="Black"
                 IsChecked="True"/>
 
             <RadioButton
                 x:Name="rdbPublisher"
+                CheckedChanged="OnAuthorsOrPublishersChecked"
+                Value="Publisher"
                 Content="Editorial"
                 TextColor="Black"/>
 
@@ -61,11 +65,12 @@
                 Text="Autor/Editorial"
                 TextColor="Black"
                 FontAttributes="Bold"/>
-            
-            <Label
-                x:Name="lblAuthorPublisher"
-                Text="Empty"
-                TextColor="Black"/>
+            <VerticalStackLayout
+                x:Name="vslAuthorsAndPublishers"
+                Margin="10"
+                Padding="10">
+            </VerticalStackLayout>
+
         </VerticalStackLayout>
 
         <!-- Third Column: Cover of the Book -->
