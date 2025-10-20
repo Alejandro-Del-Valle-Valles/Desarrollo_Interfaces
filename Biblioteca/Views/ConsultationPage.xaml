@@ -48,6 +48,7 @@
             <!-- Radio Buttons -->
             <RadioButton
                 x:Name="rdbAuthor"
+                CheckedChanged="OnAuthorsOrPublishersChecked"
                 Value="Author"
                 Content="Autor"
                 TextColor="Black"
@@ -94,6 +95,7 @@
                 StrokeShape="RoundRectangle 8">
                 
                 <Image
+                    x:Name="imgCover"
                     Aspect="AspectFit"
                     WidthRequest="150"
                     HeightRequest="250" />

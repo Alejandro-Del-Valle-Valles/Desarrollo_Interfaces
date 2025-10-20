@@ -1,40 +1,39 @@
-using Biblioteca.Model;
 using Biblioteca.Repositories;
 
 namespace Biblioteca.Views;
 
-/*
- La funcionalidad es la siguiente:
-El usuario debe pulsar si quiere que se muestren los autores o lad editoriales, y en base a lo que seleccione,
-debemos mostrarle en la columna de "Editoriales/Autores" las editoriales o los autores.
-Cuando pulse una editorial o un autor, mostrarle los los libros de ese autor o de esa editorial en la columna de títulos.
-Y cuando pulse un título, mostrar la portada.
- */
 public partial class ConsultationPage : ContentPage
 {
-
     private string? _selectedFilterValue;
+
     public ConsultationPage()
-	{
-		InitializeComponent();
-	}
+    {
+        InitializeComponent();
+        var authorNames = BooksRepository.books
+            .GroupBy(b => b.Author)
+            .Select(g => g.Key);
+        GenerateDynamicLabels(vslAuthorsAndPublishers, authorNames, OnLabelTapped);
+    }
 
     /// <summary>
     /// Checks what options is pressed and show the authors or publisher based on the election.
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void OnAuthorsOrPublishersChecked(object? sender, CheckedChangedEventArgs e)
     {
+        if (vslTitles == null || imgCover == null) return;
+        
         if (!e.Value) return;
-        //TODO: Corregir esto
+        imgCover.Source = null;
+        _selectedFilterValue = null;
+        vslTitles.Clear();
+
         if (rdbAuthor.IsChecked)
         {
             var authorNames = BooksRepository.books
                 .GroupBy(b => b.Author)
                 .Select(g => g.Key);
 
-            GenerateDynamicLabels(vslAuthorsAndPublishers, authorNames);
+            GenerateDynamicLabels(vslAuthorsAndPublishers, authorNames, OnLabelTapped);
         }
         else
         {
@@ -42,10 +41,13 @@ public partial class ConsultationPage : ContentPage
                 .GroupBy(b => b.Publisher)
                 .Select(g => g.Key);
 
-            GenerateDynamicLabels(vslAuthorsAndPublishers, publisherNames);
+            GenerateDynamicLabels(vslAuthorsAndPublishers, publisherNames, OnLabelTapped);
         }
     }
 
+    /// <summary>
+    /// Show the titles by the filter selected by the user. (Author or Publisher)
+    /// </summary>
     private void LoadTitlesForFilter()
     {
         if (string.IsNullOrEmpty(_selectedFilterValue))
@@ -75,9 +77,6 @@ public partial class ConsultationPage : ContentPage
     /// <summary>
     /// Helper method to create dynamic, clickable labels in a specific layout.
     /// </summary>
-    /// <param name="layout">The VerticalStackLayout to add labels to.</param>
-    /// <param name="items">A list of strings to display as labels.</param>
-    /// <param name="tapHandler">The event handler for the tap gesture.</param>
     private void GenerateDynamicLabels(VerticalStackLayout layout, IEnumerable<string> items, EventHandler<TappedEventArgs> tapHandler)
     {
         layout.Clear();
@@ -108,6 +107,11 @@ public partial class ConsultationPage : ContentPage
         if (sender is Label selectedTitleLabel)
         {
             string selectedTitle = selectedTitleLabel.Text;
+            var selectedBook = BooksRepository.books
+                .FirstOrDefault(b => b.Title == selectedTitle);
+
+            if (selectedBook != null) imgCover.Source = ImageSource.FromFile(selectedBook.ImageURI);
+            
         }
     }
 
@@ -115,8 +119,6 @@ public partial class ConsultationPage : ContentPage
     /// Handles the tap event on a dynamically generated label.
     /// Stores the selected value and provides visual feedback.
     /// </summary>
-    /// <param name="sender">The object that was tapped (the Label).</param>
-    /// <param name="e">Event arguments.</param>
     private void OnLabelTapped(object sender, TappedEventArgs e)
     {
         if (sender is Label selectedLabel)
@@ -135,6 +137,7 @@ public partial class ConsultationPage : ContentPage
             selectedLabel.FontAttributes = FontAttributes.Bold;
             selectedLabel.BackgroundColor = Colors.LightGray;
             selectedLabel.TextColor = Colors.DarkBlue;
+            imgCover.Source = null;
 
             LoadTitlesForFilter();
         }
