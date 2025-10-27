@@ -6,11 +6,32 @@
     xmlns:local="clr-namespace:Tienda.ViewController"
     Title="Tienda"
     BackgroundColor="{StaticResource Primary}"
-    TitleColor="{StaticResource SecondaryDarkText}">
+    TitleColor="{StaticResource SecondaryDarkText}"
+    TabBarBackgroundColor="{StaticResource Primary}"
+    TabBarTitleColor="{StaticResource SecondaryDarkText}"
+    TabBarUnselectedColor="Black"
+    TabBarForegroundColor="{StaticResource SecondaryDark}">
 
-    <ShellContent
-        Title="Bienvenida"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage"/>
+    <TabBar>
+        <ShellContent
+            Title="Bienvenida"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage"/>
+
+        <ShellContent
+            Title="Alta"
+            ContentTemplate="{DataTemplate local:RegistrationPage}"
+            Route="RegistrationPage"/>
+
+        <ShellContent
+            Title="Consultar Clientes"
+            ContentTemplate="{DataTemplate local:CustomersConsultationPage}"
+            Route="CustomersConsultationPage"/>
+
+        <ShellContent
+            Title="Busqueda personalizada de clientes"
+            ContentTemplate="{DataTemplate local:SearchCostumerPage}"
+            Route="SearchCostumerPage"/>
+    </TabBar>
 
 </Shell>
