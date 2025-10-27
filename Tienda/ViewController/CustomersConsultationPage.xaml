@@ -4,10 +4,105 @@
              x:Class="Tienda.ViewController.CustomersConsultationPage"
              Title="CustomersConsultationPage"
              BackgroundColor="{StaticResource SecondaryDark}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout
+            Margin="5"
+            Padding="5">
+            <!-- Filters -->
+            <HorizontalStackLayout
+                Padding="5"
+                Margin="5"
+                HorizontalOptions="Center">
+
+                <!-- Filter by City -->
+                <VerticalStackLayout
+                    Padding="0, 5, 60, 5"
+                    Margin="0, 5, 60, 5">
+                    <Picker
+                        x:Name="pkrCity"
+                        Title="Selecciona una ciudad"
+                        FontSize="16"
+                        BackgroundColor="Gray">
+                    </Picker>
+                </VerticalStackLayout>
+
+                <!-- Filter by VIP -->
+                <VerticalStackLayout
+                    Padding="60, 5, 0, 5"
+                    Margin="60, 5, 0, 5">
+                    <Picker
+                        x:Name="pkrVip"
+                        Title="Vip/No Vip"
+                        FontSize="16"
+                        BackgroundColor="Gray">
+                    </Picker>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+            
+            <!-- Customers Info -->
+            <CollectionView
+                x:Name="clvCustomers"
+                HorizontalOptions="Center">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout
+                        Orientation="Vertical"
+                        Span="6"
+                        VerticalItemSpacing="10"
+                        HorizontalItemSpacing="10">
+                    </GridItemsLayout>
+                </CollectionView.ItemsLayout>
+
+                <!-- Headers -->
+                <CollectionView.Header>
+                    <Grid
+                        Padding="5"
+                        ColumnSpacing="0"
+                        ColumnDefinitions="*, *, *, *, *, *">
+                        <Label
+                            Text="Nombre"
+                            TextColor="Black"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Grid.Column="0"/>
+
+                        <Label
+                            Text="Apellidos"
+                            TextColor="Black"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Grid.Column="1"/>
+
+                        <Label
+                            Text="Ciudad"
+                            TextColor="Black"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Grid.Column="2"/>
+
+                        <Label
+                            Text="Email"
+                            TextColor="Black"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Grid.Column="3"/>
+
+                        <Label
+                            Text="Comentarios"
+                            TextColor="Black"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Grid.Column="4"/>
+
+                        <Label
+                            Text="VIP"
+                            TextColor="Black"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Grid.Column="5"/>
+
+                    </Grid>
+                </CollectionView.Header>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
