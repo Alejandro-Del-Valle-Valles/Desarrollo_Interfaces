@@ -2,12 +2,56 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tienda.ViewController.SearchCostumerPage"
-             Title="SearchCostumerPage"
+             Title="Consulta Individual"
              BackgroundColor="{StaticResource SecondaryDark}">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout
+            VerticalOptions="Fill"
+            HorizontalOptions="Fill">
+            <!-- Filters Part -->
+            <Entry
+                Placeholder="Buscar Cliente...."
+                BackgroundColor="White"
+                Height="50"
+                HeightRequest="50"
+                HorizontalOptions="Fill"
+                Width="NaN"
+                Margin="5"/>
+
+            <HorizontalStackLayout
+                Padding="10"
+                Margin="10"
+                HorizontalOptions="Center">
+                <Button
+                    x:Name="btnPrevious"
+                    Clicked="OnPreviousOrNextClicked"
+                    Text="Anterior"
+                    FontSize="16"
+                    TextColor="{StaticResource Primary}"
+                    BackgroundColor="{StaticResource Secondary}"
+                    Padding="10"
+                    Margin="10"/>
+
+                <Button
+                    x:Name="btnNext"
+                    Clicked="OnPreviousOrNextClicked"
+                    Text="Siguiente"
+                    FontSize="16"
+                    TextColor="{StaticResource Primary}"
+                    BackgroundColor="{StaticResource Secondary}"
+                    Padding="10"
+                    Margin="10"/>
+            </HorizontalStackLayout>
+
+            <!-- Clients View -->
+            <ScrollView>
+                <VerticalStackLayout
+                    x:Name="vslCustomers"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

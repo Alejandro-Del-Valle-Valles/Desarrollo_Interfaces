@@ -4,6 +4,7 @@
              x:Class="Tienda.ViewController.RegistrationPage"
              Title="RegistrationPage"
              BackgroundColor="{StaticResource SecondaryDark}">
+    <!-- Tool Bar -->
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Text="Guardar"
