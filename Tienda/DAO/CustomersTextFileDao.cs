@@ -1,4 +1,5 @@
-﻿using Tienda.Exceptions;
+﻿using System.Text;
+using Tienda.Extensions;
 using Tienda.Model;
 using Tienda.Interfaces;
 
@@ -9,18 +10,18 @@ namespace Tienda.DAO
         private const string FilePath = "../../../Files/datosClientes.txt";
 
         /// <summary>
-        /// Insert into the file the new Customer if not exist.
+        /// Insert into the file the new Customer if not exist. Also order the data
         /// </summary>
         /// <param name="obj">Customer to insert</param>
         /// <returns>boo, true if it was added, false otherwise.</returns>
-        public bool Insert(Customer obj)
+        public async Task<bool> Insert(Customer obj)
         {
             bool isAdded = false;
-            IList<Customer> customers = GetAll().ToList();
+            List<Customer> customers = GetAll().ToList();
             if (!customers.Contains(obj))
             {
-                string formatted = $"{obj.Name}#{obj.Surname}#{obj.City}#{obj.Email}#{obj.Comment}#{obj.IsVip}";
-                File.AppendAllText(FilePath, formatted);
+                customers.Add(obj);
+                File.WriteAllText(FilePath, OrderAndCreateStringData(customers));
                 isAdded = true;
             }
             return isAdded;
@@ -31,17 +32,15 @@ namespace Tienda.DAO
         /// </summary>
         /// <param name="obj">Customer to update.</param>
         /// <returns>bool, if it was updated, false otherwise.</returns>
-        public bool Update(Customer obj)
+        public async Task<bool> Update(Customer obj)
         {
             bool isUpdated = false;
             List<Customer> customers = GetAll().ToList();
-            if (!customers.Contains(obj))
+            if (customers.Contains(obj))
             {
+                customers.Remove(obj);
                 customers.Add(obj);
-                customers.Order();
-                string data = string.Empty;
-                customers.ForEach(c => data += $"{c.Name}#{c.Surname}#{c.City}#{c.Email}#{c.Comment}#{c.IsVip}\n");
-                File.WriteAllText(FilePath, data);
+                File.WriteAllText(FilePath, OrderAndCreateStringData(customers));
                 isUpdated = true;
             }
             return isUpdated;
@@ -52,9 +51,17 @@ namespace Tienda.DAO
         /// </summary>
         /// <param name="id">string email of the customer</param>
         /// <returns>bool, true if it was deleted, false otherwise.</returns>
-        public bool Delete(string id)
+        public async Task<bool> Delete(string email)
         {
-            throw new NotImplementedException();
+            bool isDeleted = false;
+            List<Customer> customers = GetAll().ToList();
+            Customer? customerToDelete = customers.FirstOrDefault(c => c.Email == email.Capitalize());
+            if (customerToDelete != null)
+            {
+                isDeleted = customers.Remove(customerToDelete);
+                File.WriteAllText(FilePath, OrderAndCreateStringData(customers));
+            }
+            return isDeleted;
         }
 
         /// <summary>
@@ -62,9 +69,13 @@ namespace Tienda.DAO
         /// </summary>
         /// <param name="email">string</param>
         /// <returns>Customer that can be null.</returns>
-        public Customer? GetById(string email) => GetAll().FirstOrDefault(c => c.Email == email);
+        public async Task<Customer?> GetById(string email) => GetAll().Result.FirstOrDefault(c => c.Email == email);
 
-        public IEnumerable<Customer> GetAll()
+        /// <summary>
+        /// Obtain all customers from the file.
+        /// </summary>
+        /// <returns>IEnumerable with all customers or empty if the file doesn't have any</returns>
+        public async Task<IEnumerable<Customer>> GetAll()
         {
             IList<Customer> customers = new List<Customer>();
             using (var sr = new StreamReader(FilePath))
@@ -77,6 +88,19 @@ namespace Tienda.DAO
                 }
             }
             return customers;
+        }
+
+        /// <summary>
+        /// Order the list and create a string with the data. One line for each customer.
+        /// </summary>
+        /// <param name="customers">List of customers</param>
+        /// <returns>string with the data</returns>
+        private string OrderAndCreateStringData(List<Customer> customers)
+        {
+            customers.Order();
+            StringBuilder sb = new();
+            customers.ForEach(c => sb.AppendLine($"{c.Name}#{c.Surname}#{c.City}#{c.Email}#{c.Comment}#{c.IsVip}"));
+            return sb.ToString();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Tienda.Interfaces
+﻿using Tienda.Model;
+
+namespace Tienda.Interfaces
 {
     /// <summary>
     /// Interface used for CRUD operations.
@@ -7,11 +9,11 @@
     /// <typeparam name="ID">Type of the attribute that acts as PK of the object.</typeparam>
     interface ICrud<T, ID>
     {
-        public bool Insert(T obj);
-        public bool Update(T obj);
-        public bool Delete(ID id);
-        public T? GetById(ID id);
-        public IEnumerable<T> GetAll();
+        public Task<bool> Insert(T obj);
+        public Task<bool> Update(T obj);
+        public Task<bool> Delete(ID id);
+        public Task<T?> GetById(ID id);
+        public Task<IEnumerable<T>> GetAll();
 
     }
 }
