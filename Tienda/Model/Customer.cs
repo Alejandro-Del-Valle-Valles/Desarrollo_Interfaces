@@ -7,6 +7,7 @@ namespace Tienda.Model
     {
         private string _name = "Desconocido";
         private string _surname = "Desconocido";
+        private string _city = "Desconocida";
         private string _email = "Desconocido";
         private string _comment = "Sin comentario";
 
@@ -32,6 +33,18 @@ namespace Tienda.Model
             set => _surname = string.IsNullOrEmpty(value.Trim())
                 ? throw new InvalidValueException("El apellido no puede estar vacío.")
                 : value.CapitalizeAll();
+        }
+
+        /// <summary>
+        /// Getter and Setter for the City.
+        /// </summary>
+        /// <exception cref="InvalidValueException">thrown if the city is null or empty.</exception>
+        public string City
+        {
+            get => _city;
+            set => _city = string.IsNullOrEmpty(value.Trim())
+                ? throw new InvalidValueException("La ciudad no puede estar vacía.")
+                : value.Capitalize();
         }
 
         /// <summary>
@@ -67,17 +80,18 @@ namespace Tienda.Model
         /// <param name="email">string</param>
         /// <param name="comment">string</param>
         /// <param name="isVip">bool, default false.</param>
-        public Customer(string name, string surname, string email, string comment, bool isVip = false)
+        public Customer(string name, string surname,string city, string email, string comment, bool isVip = false)
         {
             Name = name;
             Surname = surname;
+            City = city;
             Email = email;
             Comment = comment;
             IsVip = isVip;
         }
 
         public override string ToString() =>
-            $"Customer(Name: {Name}, Surname: {Surname}, Email: {Email}, Comment: {Comment}, VIP: {IsVip})";
+            $"Customer(Name: {Name}, Surname: {Surname}, City: {City}, Email: {Email}, Comment: {Comment}, VIP: {IsVip})";
 
         /// <summary>
         /// Two customers are equal if they have the same email.
@@ -111,7 +125,7 @@ namespace Tienda.Model
         public static bool operator !=(Customer? left, Customer? right) => !Equals(left, right);
 
         /// <summary>
-        /// Compare first by the name, then by the surname, then b the email, then by if they are Vip, and finally by the comment.
+        /// Compare first by the name, then by the surname, then by the city, then by the email, then by if they are Vip, and finally by the comment.
         /// </summary>
         /// <param name="other">Customer to compare with.</param>
         /// <returns>int</returns>
@@ -119,18 +133,22 @@ namespace Tienda.Model
         {
             if (ReferenceEquals(this, other)) return 0;
             if (other is null) return 1;
+
             var nameComparison = string.Compare(_name, other._name, StringComparison.Ordinal);
-
             if (nameComparison != 0) return nameComparison;
+
             var surnameComparison = string.Compare(_surname, other._surname, StringComparison.Ordinal);
-
             if (surnameComparison != 0) return surnameComparison;
+
             var emailComparison = string.Compare(_email, other._email, StringComparison.Ordinal);
-
             if (emailComparison != 0) return emailComparison;
-            var isVipComparison = IsVip.CompareTo(other.IsVip);
 
+            var cityComparison = string.Compare(_city, other._city, StringComparison.Ordinal);
+            if (cityComparison != 0) return cityComparison;
+
+            var isVipComparison = IsVip.CompareTo(other.IsVip);
             if (isVipComparison != 0) return isVipComparison;
+
             return string.Compare(_comment, other._comment, StringComparison.Ordinal);
         }
     }
