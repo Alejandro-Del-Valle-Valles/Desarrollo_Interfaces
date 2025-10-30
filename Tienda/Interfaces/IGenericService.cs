@@ -9,7 +9,7 @@ namespace Tienda.Interfaces
     /// <typeparam name="ID">type of the PK of the object.</typeparam>
     interface IGenericService<T, ID>
     {
-        public Task<ServiceResult> Create(T obj);
+        public Task<ServiceResult> Create(T customer);
         public Task<ServiceResult> Modify(T obj);
         public Task<ServiceResult> Delete(ID id);
         public Task<ServiceResult<T>> GetById(ID id);

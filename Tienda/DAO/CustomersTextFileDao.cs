@@ -7,7 +7,7 @@ namespace Tienda.DAO
 {
     class CustomersTextFileDao : ICrud<Customer, string>
     {
-        private const string FilePath = "../../../Files/datosClientes.txt";
+        private const string FilePath = "../../../../Files/datosClientes.txt";
 
         /// <summary>
         /// Insert into the file the new Customer if not exist. Also order the data
@@ -17,7 +17,7 @@ namespace Tienda.DAO
         public async Task<bool> Insert(Customer obj)
         {
             bool isAdded = false;
-            List<Customer> customers = GetAll().ToList();
+            List<Customer> customers = GetAll().Result.ToList();
             if (!customers.Contains(obj))
             {
                 customers.Add(obj);
@@ -35,7 +35,7 @@ namespace Tienda.DAO
         public async Task<bool> Update(Customer obj)
         {
             bool isUpdated = false;
-            List<Customer> customers = GetAll().ToList();
+            List<Customer> customers = GetAll().Result.ToList();
             if (customers.Contains(obj))
             {
                 customers.Remove(obj);
@@ -47,15 +47,15 @@ namespace Tienda.DAO
         }
 
         /// <summary>
-        /// Delete a customer from the file if exist. It also ordered the file.
+        /// Delete a customer from the file if exists. It also ordered the file.
         /// </summary>
         /// <param name="id">string email of the customer</param>
         /// <returns>bool, true if it was deleted, false otherwise.</returns>
         public async Task<bool> Delete(string email)
         {
             bool isDeleted = false;
-            List<Customer> customers = GetAll().ToList();
-            Customer? customerToDelete = customers.FirstOrDefault(c => c.Email == email.Capitalize());
+            List<Customer> customers = GetAll().Result.ToList();
+            Customer? customerToDelete = customers.FirstOrDefault(c => c.Email == email.ToLower());
             if (customerToDelete != null)
             {
                 isDeleted = customers.Remove(customerToDelete);

@@ -10,14 +10,18 @@ namespace Tienda.Service
         /// <summary>
         /// Add into the repository (DB, File...) the new customer if not exists.
         /// </summary>
-        /// <param name="obj">Customer to add.</param>
+        /// <param name="customer">Customer to add.</param>
         /// <returns>bool, true if it was added, false otherwise.</returns>
-        public async Task<ServiceResult> Create(Customer obj)
+        public async Task<ServiceResult> Create(Customer customer)
         {
             ServiceResult sr;
             try
             {
-                sr = ServiceResult.Success();
+                if (await customerCrud.Insert(customer))
+                {
+                    sr = ServiceResult.Success();
+                }
+                else sr = ServiceResult.Failure(ServiceErrorType.UnknowException, "No se pudo guardar el cliente probablemente porque ya existe.");
             }
             catch (DirectoryNotFoundException ex)
             {
@@ -49,7 +53,11 @@ namespace Tienda.Service
             ServiceResult sr;
             try
             {
-                sr = ServiceResult.Success();
+                if (await customerCrud.Update(obj))
+                {
+                    sr = ServiceResult.Success();
+                }
+                else sr = ServiceResult.Failure(ServiceErrorType.UnknowException, "No se pudo guardar el cliente probablemente porque no existe.");
             }
             catch (DirectoryNotFoundException ex)
             {
@@ -81,7 +89,11 @@ namespace Tienda.Service
             ServiceResult sr;
             try
             {
-                sr = ServiceResult.Success();
+                if (await customerCrud.Delete(email))
+                {
+                    sr = ServiceResult.Success();
+                }
+                else sr = ServiceResult.Failure(ServiceErrorType.UnknowException, $"No se pudo eliminar el cliente probablemente porque no existe.{email}");
             }
             catch (DirectoryNotFoundException ex)
             {

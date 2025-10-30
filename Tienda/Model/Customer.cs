@@ -65,7 +65,7 @@ namespace Tienda.Model
         public string Comment
         {
             get => _comment;
-            set => _comment = string.IsNullOrEmpty(value.Trim())
+            set => _comment = string.IsNullOrEmpty(value)
                 ? _comment
                 : value.Capitalize();
         }
