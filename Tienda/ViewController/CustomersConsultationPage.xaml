@@ -42,67 +42,82 @@
             <!-- Customers Info -->
             <CollectionView
                 x:Name="clvCustomers"
-                HorizontalOptions="Center">
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+
+                <!-- Layout Definition -->
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout
-                        Orientation="Vertical"
-                        Span="6"
-                        VerticalItemSpacing="10"
-                        HorizontalItemSpacing="10">
-                    </GridItemsLayout>
+                    <LinearItemsLayout
+                        Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
 
                 <!-- Headers -->
                 <CollectionView.Header>
                     <Grid
                         Padding="5"
-                        ColumnSpacing="0"
+                        ColumnSpacing="10"
                         ColumnDefinitions="*, *, *, *, *, *">
-                        <Label
-                            Text="Nombre"
-                            TextColor="Black"
-                            FontSize="16"
-                            FontAttributes="Bold"
-                            Grid.Column="0"/>
 
-                        <Label
-                            Text="Apellidos"
-                            TextColor="Black"
-                            FontSize="16"
-                            FontAttributes="Bold"
-                            Grid.Column="1"/>
+                        <Label Text="Nombre"
+                               FontAttributes="Bold"
+                               Grid.Column="0" />
 
-                        <Label
-                            Text="Ciudad"
-                            TextColor="Black"
-                            FontSize="16"
-                            FontAttributes="Bold"
-                            Grid.Column="2"/>
+                        <Label Text="Apellidos" FontAttributes="Bold"
+                               Grid.Column="1" />
 
-                        <Label
-                            Text="Email"
-                            TextColor="Black"
-                            FontSize="16"
-                            FontAttributes="Bold"
-                            Grid.Column="3"/>
+                        <Label Text="Ciudad"
+                               FontAttributes="Bold"
+                               Grid.Column="2" />
 
-                        <Label
-                            Text="Comentarios"
-                            TextColor="Black"
-                            FontSize="16"
-                            FontAttributes="Bold"
-                            Grid.Column="4"/>
+                        <Label Text="Correo Electrónico"
+                               FontAttributes="Bold"
+                               Grid.Column="3" />
 
-                        <Label
-                            Text="VIP"
-                            TextColor="Black"
-                            FontSize="16"
-                            FontAttributes="Bold"
-                            Grid.Column="5"/>
+                        <Label Text="Comentarios"
+                               FontAttributes="Bold"
+                               Grid.Column="4" />
 
+                        <Label Text="VIP" FontAttributes="Bold"
+                               Grid.Column="5"
+                               HorizontalTextAlignment="Center" />
                     </Grid>
                 </CollectionView.Header>
+
+                <!-- Customers Data -->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5"
+                              ColumnSpacing="10"
+                              ColumnDefinitions="*, *, *, *, *, *">
+
+                            <Label Text="{Binding Name}"
+                                   Grid.Column="0"
+                                   LineBreakMode="TailTruncation" />
+
+                            <Label
+                                Text="{Binding Surname}"
+                                Grid.Column="1"
+                                LineBreakMode="TailTruncation" />
+
+                            <Label Text="{Binding City}"
+                                   Grid.Column="2"
+                                   LineBreakMode="TailTruncation" />
+
+                            <Label Text="{Binding Email}"
+                                   Grid.Column="3"
+                                   LineBreakMode="TailTruncation" />
+                            <Label Text="{Binding Comment}"
+                                   Grid.Column="4"
+                                   LineBreakMode="TailTruncation" />
+
+                            <Label Text="{Binding IsVip}"
+                                   Grid.Column="5"
+                                   HorizontalTextAlignment="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
             </CollectionView>
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

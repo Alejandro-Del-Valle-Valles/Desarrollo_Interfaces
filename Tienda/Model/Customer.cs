@@ -1,15 +1,18 @@
-﻿using Tienda.Exceptions;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Tienda.Exceptions;
 using Tienda.Extensions;
 
 namespace Tienda.Model
 {
-    class Customer : IComparable<Customer>
+    class Customer : IComparable<Customer>, INotifyPropertyChanged
     {
         private string _name = "Desconocido";
         private string _surname = "Desconocido";
         private string _city = "Desconocida";
         private string _email = "Desconocido";
         private string _comment = "Sin comentario";
+        private bool _isVip = false;
 
         /// <summary>
         /// Getter and Setter for the Name.
@@ -18,9 +21,13 @@ namespace Tienda.Model
         public string Name
         {
             get => _name;
-            set => _name = string.IsNullOrEmpty(value.Trim())
-                ? throw new InvalidValueException("El nombre no puede estar vacío.")
-                : value.CapitalizeAll();
+            set
+            {
+                _name = string.IsNullOrEmpty(value.Trim())
+                    ? throw new InvalidValueException("El nombre no puede estar vacío.")
+                    : value.CapitalizeAll();
+                OnPropertyChanged();
+            }
         }
 
         /// <summary>
@@ -30,9 +37,13 @@ namespace Tienda.Model
         public string Surname
         {
             get => _surname;
-            set => _surname = string.IsNullOrEmpty(value.Trim())
-                ? throw new InvalidValueException("El apellido no puede estar vacío.")
-                : value.CapitalizeAll();
+            set
+            {
+                _surname = string.IsNullOrEmpty(value.Trim())
+                    ? throw new InvalidValueException("El apellido no puede estar vacío.")
+                    : value.CapitalizeAll();
+                OnPropertyChanged();
+            }
         }
 
         /// <summary>
@@ -42,9 +53,13 @@ namespace Tienda.Model
         public string City
         {
             get => _city;
-            set => _city = string.IsNullOrEmpty(value.Trim())
-                ? throw new InvalidValueException("La ciudad no puede estar vacía.")
-                : value.Capitalize();
+            set
+            {
+                _city = string.IsNullOrEmpty(value.Trim())
+                    ? throw new InvalidValueException("La ciudad no puede estar vacía.")
+                    : value.Capitalize();
+                OnPropertyChanged();
+            }
         }
 
         /// <summary>
@@ -54,9 +69,13 @@ namespace Tienda.Model
         public string Email
         {
             get => _email;
-            set => _email = string.IsNullOrEmpty(value.Trim()) || !value.Contains("@") || !value.Contains(".")
-                ? throw new InvalidValueException("El email no puede estar vació y debe contener un dominio.")
-                : value.ToLower();
+            set
+            {
+                _email = string.IsNullOrEmpty(value.Trim()) || !value.Contains("@") || !value.Contains(".")
+                    ? throw new InvalidValueException("El email no puede estar vació y debe contener un dominio.")
+                    : value.ToLower();
+                OnPropertyChanged();
+            }
         }
 
         /// <summary>
@@ -65,11 +84,23 @@ namespace Tienda.Model
         public string Comment
         {
             get => _comment;
-            set => _comment = string.IsNullOrEmpty(value)
-                ? _comment
-                : value.Capitalize();
+            set
+            {
+                _comment = string.IsNullOrEmpty(value)
+                    ? _comment
+                    : value.Capitalize();
+                OnPropertyChanged();
+            }
         }
-        public bool IsVip { get; set; }
+        public bool IsVip
+        {
+            get => _isVip;
+            set
+            {
+                _isVip = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// Constructor for Customers.
@@ -151,5 +182,9 @@ namespace Tienda.Model
 
             return string.Compare(_comment, other._comment, StringComparison.Ordinal);
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
