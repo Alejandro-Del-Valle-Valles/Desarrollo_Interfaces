@@ -10,7 +10,6 @@ public partial class CustomersConsultationPage : ContentPage
     private static readonly IGenericService<Customer, string> CustomerService =
         new CustomerService(new CustomersTextFileDao());
     private ObservableCollection<Customer> allCustomers = new();
-    private string SelectedCity = String.Empty;
     private bool? IsVipSelected = null;
 	public CustomersConsultationPage()
 	{
@@ -18,6 +17,9 @@ public partial class CustomersConsultationPage : ContentPage
         InitializeData();
 	}
 
+    /// <summary>
+    /// Initialize the customers data to show it and the filters.
+    /// </summary>
     private void InitializeData()
     {
         allCustomers =
@@ -41,6 +43,9 @@ public partial class CustomersConsultationPage : ContentPage
         pkrVip.SelectedIndexChanged += (s, e) => ApplyFilters();
     }
 
+    /// <summary>
+    /// Apply filters to the data.
+    /// </summary>
     private void ApplyFilters()
     {
         if (allCustomers == null || allCustomers.Count == 0)

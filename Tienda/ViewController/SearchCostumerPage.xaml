@@ -10,8 +10,11 @@
             HorizontalOptions="Fill">
             <!-- Filters Part -->
             <Entry
+                x:Name="etyFilter"
                 Placeholder="Buscar Cliente...."
                 BackgroundColor="White"
+                TextColor="Black"
+                FontSize="18"
                 Height="50"
                 HeightRequest="50"
                 HorizontalOptions="Fill"
@@ -45,12 +48,65 @@
 
             <!-- Clients View -->
             <ScrollView>
-                <VerticalStackLayout
-                    x:Name="vslCustomers"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center">
+                <CollectionView
+                    x:Name="clvCustomers"
+                    SelectionMode="Single">
 
-                </VerticalStackLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <VerticalStackLayout>
+                                <Image
+                                    Height="100"
+                                    Width="100"
+                                    HeightRequest="100"
+                                    WidthRequest="100"
+                                    Aspect="AspectFit">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+
+                                            <Setter Property="Source" Value="no_vip_star.png" />
+
+                                            <Style.Triggers>
+                                                <DataTrigger TargetType="Image"
+                                                             Binding="{Binding IsVip}"
+                                                             Value="True">
+
+                                                    <Setter Property="Source" Value="vip_star.png" />
+                                                </DataTrigger>
+
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+
+                                <Label Text="{Binding Name}"
+                                       TextColor="Black"
+                                       FontSize="18"
+                                       Padding="10"
+                                       HorizontalTextAlignment="Center"/>
+
+                                <Label Text="{Binding Surname}"
+                                       TextColor="Black"
+                                       FontSize="18"
+                                       Padding="10"
+                                       HorizontalTextAlignment="Center"/>
+
+                                <Label Text="{Binding City}"
+                                       TextColor="Black"
+                                       FontSize="18"
+                                       Padding="10"
+                                       HorizontalTextAlignment="Center"/>
+
+                                <Label Text="{Binding Email}"
+                                       TextColor="Black"
+                                       FontSize="18"
+                                       Padding="10"
+                                       HorizontalTextAlignment="Center"/>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
             </ScrollView>
         </VerticalStackLayout>
     </ScrollView>
