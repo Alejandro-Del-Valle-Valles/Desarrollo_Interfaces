@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AgendaBienestar.Controllers.MainPage">
+
+    <VerticalStackLayout
+        HorizontalOptions="Center">
+        <Border
+            Padding="25"
+            Margin="10" >
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10"/>
+            </Border.StrokeShape>
+            <VerticalStackLayout>
+                <Label
+                    Text="¡Bienvenido Alumno!"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center" 
+                    Padding="0, 0, 0, 25"/>
+
+                <Label
+                    Text="¡Bienvenido a tu diario de Bienestar!"
+                    HorizontalTextAlignment="Start"
+                    Padding="0, 0, 0, 25"/>
+
+                <Label
+                    Text="Registra como te sientes y tus actividades diarias para mejorar tu bienestar."
+                    HorizontalTextAlignment="Start"
+                    FontSize="12"
+                    TextColor="Gray"/>
+            </VerticalStackLayout>
+        </Border>
+        <Image
+            Source="notebook.png"
+            HorizontalOptions="Center"
+            HeightRequest="250"
+            WidthRequest="300"
+            Aspect="AspectFit"/>
+    </VerticalStackLayout>
+    
+</ContentPage>

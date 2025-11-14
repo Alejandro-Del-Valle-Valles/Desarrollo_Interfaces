@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="AgendaBienestar.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:AgendaBienestar.Controllers"
+    Title="AgendaBienestar"
+    FlyoutBehavior="Flyout"
+    FlyoutBackgroundColor="Azure">
+
+    <FlyoutItem
+        Title="Inicio">
+        <ShellContent
+            Title="Inicio"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+    </FlyoutItem>
+
+    <FlyoutItem
+        Title="Diario">
+        <ShellContent
+            Title="Registro de Diario"
+            ContentTemplate="{DataTemplate local:DailyRegistrationPage}"
+            Route="DailyRegistrationPage"/>
+     </FlyoutItem>
+
+    <FlyoutItem
+        Title="Estadísticas">
+        <ShellContent
+            Title="Estadísticas"
+            ContentTemplate="{DataTemplate local:StatsPage}"
+            Route="StatsPage"/>
+    </FlyoutItem>
+
+    <FlyoutItem
+        Title="Registro de Actividad">
+        <ShellContent
+            Title="Registro de Actividad"
+            ContentTemplate="{DataTemplate local:RegistrationPage}"
+            Route="RegistrationPage"/>
+    </FlyoutItem>
+</Shell>

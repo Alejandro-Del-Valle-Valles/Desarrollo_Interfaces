@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AgendaBienestar.Controllers.DailyRegistrationPage"
+             Title="Registro Diario">
+
+    <VerticalStackLayout
+        Padding="20, 10, 20, 10"
+        Margin="20, 10, 20, 10">
+
+        <!-- Date Selection -->
+        <Label
+            Text="Fecha"/>
+
+        <DatePicker
+            x:Name="dpDate"/>
+
+        <!-- User Comment -->
+        <Label
+            Text="¿Como te sientes hoy?"/>
+
+        <Editor
+            Placeholder="Escribe aquí como te sientes"
+            AutoSize="TextChanges"
+            HeightRequest="100"/>
+
+        <!-- Physical Activity of the User -->
+        <Label
+            Text="Nivel de Actividad Física"/>
+
+        <Slider
+            x:Name="sdActivity"
+            Minimum="0"
+            Maximum="10"
+            Value="5"/>
+
+        <Grid ColumnDefinitions="*,*,*,*,*,*,*,*,*,*,*">
+            <Label Text="0" Grid.Column="0" HorizontalOptions="Center" />
+            <Label Text="1" Grid.Column="1" HorizontalOptions="Center" />
+            <Label Text="2" Grid.Column="2" HorizontalOptions="Center" />
+            <Label Text="3" Grid.Column="3" HorizontalOptions="Center" />
+            <Label Text="4" Grid.Column="4" HorizontalOptions="Center" />
+            <Label Text="5" Grid.Column="5" HorizontalOptions="Center" />
+            <Label Text="6" Grid.Column="6" HorizontalOptions="Center" />
+            <Label Text="7" Grid.Column="7" HorizontalOptions="Center" />
+            <Label Text="8" Grid.Column="8" HorizontalOptions="Center" />
+            <Label Text="9" Grid.Column="9" HorizontalOptions="Center" />
+            <Label Text="10" Grid.Column="10" HorizontalOptions="Center" />
+        </Grid>
+
+        <ProgressBar
+            Progress="{Binding Source={x:Reference sdActivity}, Path=Value, Mode=OneWay}"
+            ProgressColor="Green"
+            HeightRequest="10"/>
+        <!-- TODO: Terminar esto-->
+        <!-- Energy of the User -->
+
+    </VerticalStackLayout>
+</ContentPage>
