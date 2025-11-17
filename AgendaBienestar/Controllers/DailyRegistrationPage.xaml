@@ -20,6 +20,7 @@
             Text="¿Como te sientes hoy?"/>
 
         <Editor
+            x:Name="edComment"
             Placeholder="Escribe aquí como te sientes"
             AutoSize="TextChanges"
             HeightRequest="100"/>
@@ -30,6 +31,7 @@
 
         <Slider
             x:Name="sdActivity"
+            ValueChanged="OnSliderChanged"
             Minimum="0"
             Maximum="10"
             Value="5"/>
@@ -49,11 +51,38 @@
         </Grid>
 
         <ProgressBar
-            Progress="{Binding Source={x:Reference sdActivity}, Path=Value, Mode=OneWay}"
+            x:Name="pbActivity"
+            Progress="0.5"
             ProgressColor="Green"
             HeightRequest="10"/>
-        <!-- TODO: Terminar esto-->
+
         <!-- Energy of the User -->
+        <HorizontalStackLayout>
+            <Label
+                Text="Nivel de Energía"
+                Padding="10"/>
+            
+            <Stepper
+                x:Name="spEnergy"
+                Maximum="5"
+                Minimum="1"
+                Increment="1"
+                Value="1"
+                BackgroundColor="Gray"
+                Margin="10"/>
+
+            <Label
+                Text="{Binding Source={x:Reference spEnergy}, Path=Value}"
+                Padding="10"/>
+        </HorizontalStackLayout>
+
+        <!-- Save Registration -->
+        <Button
+            Clicked="OnSaveClicked"
+            Text="Guardar Registro"
+            TextColor="White"
+            BackgroundColor="Black"
+            HorizontalOptions="End"/>
 
     </VerticalStackLayout>
 </ContentPage>
