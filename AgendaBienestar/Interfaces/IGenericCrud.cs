@@ -1,11 +1,13 @@
-﻿namespace AgendaBienestar.Interfaces
+﻿using AgendaBienestar.Model;
+
+namespace AgendaBienestar.Interfaces
 {
     internal interface IGenericCrud<T, ID>
     {
-        public bool Insert(T obj);
-        public bool Update(T obj);
-        public bool Delete(ID obj);
-        public T? GetById(ID id);
-        public IEnumerable<T> GetAll();
+        public Result Insert(T obj);
+        public Result Update(T obj);
+        public Result Delete(ID obj);
+        public Result<T?> GetById(ID id);
+        public Result<IEnumerable<T>?> GetAll();
     }
 }

@@ -5,93 +5,117 @@ namespace AgendaBienestar.Service
 {
     internal class RegisterService(IGenericCrud<Register, Guid> repositoryCrud) : IGenericService<Register, Guid>
     {
-        //TODO: Crear una clase que encapsule el objeto a devolver y si fue devuelto o no con un booleano.
-        public bool Create(Register obj)
+
+        /// <summary>
+        /// Create the Register in the Repository.
+        /// </summary>
+        /// <param name="obj">Register to create</param>
+        /// <returns>Result, Success or Failure if something went wrong.</returns>
+        public Result Create(Register obj)
         {
-            bool isCreated = false;
+            Result result = Result.Failure(new Exception());
             try
             {
-                isCreated = repositoryCrud.Insert(obj);
+                result = repositoryCrud.Insert(obj);
             }
             catch (IOException ex)
             {
-
+                result = Result.Failure(ex);
             }
             catch (Exception ex)
             {
-                
+                result = Result.Failure(ex);
             }
-            return isCreated;
+            return result;
         }
 
-        public bool Modify(Register obj)
+        /// <summary>
+        /// Update the Register from the Repository.
+        /// </summary>
+        /// <param name="obj">Register to update</param>
+        /// <returns>Result, Success or Failure if something went wrong.</returns>
+        public Result Modify(Register obj)
         {
-            bool isModified = false;
+            Result result = Result.Failure(new Exception());
             try
             {
-                isModified = repositoryCrud.Update(obj);
+                result = repositoryCrud.Update(obj);
             }
             catch (IOException ex)
             {
-
+                result = Result.Failure(ex);
             }
             catch (Exception ex)
             {
-
+                result = Result.Failure(ex);
             }
-            return isModified;
+            return result;
         }
 
-        public bool Delete(Guid id)
+        /// <summary>
+        /// Delete the Register from the Repository.
+        /// </summary>
+        /// <param name="obj">Register to delete</param>
+        /// <returns>Result, Success or Failure if something went wrong.</returns>
+        public Result Delete(Guid id)
         {
-            bool isDeleted = false;
+            Result result = Result.Failure(new Exception());
             try
             {
-                isDeleted = repositoryCrud.Delete(id);
+                result = repositoryCrud.Delete(id);
             }
             catch (IOException ex)
             {
-
+                result = Result.Failure(ex);
             }
             catch (Exception ex)
             {
-
+                result = Result.Failure(ex);
             }
-            return isDeleted;
+            return result;
         }
 
-        public Register? GetById(Guid id)
+        /// <summary>
+        /// Get a Register from the Repository if exists.
+        /// </summary>
+        /// <param name="id">Guid Id of the searched Register.</param>
+        /// <returns>Result, Success with the data or Failure with null data if something went wrong.</returns>
+        public Result<Register?> GetById(Guid id)
         {
-            Register? register = null;
+            Result<Register?> register = Result<Register?>.Failure(null, new Exception());
             try
             {
                 register = repositoryCrud.GetById(id);
             }
             catch (IOException ex)
             {
-
+                register = Result<Register?>.Failure(null, ex);
             }
             catch (Exception ex)
             {
-
+                register = Result<Register?>.Failure(null, ex);
             }
             return register;
         }
 
-        public IEnumerable<Register> GetAll()
+        /// <summary>
+        /// Get all Registers from the Repository.
+        /// </summary>
+        /// <returns>Result, Success with the data or Failure with null data if something went wrong.</returns>
+        public Result<IEnumerable<Register>?> GetAll()
         {
-            IEnumerable<Register> registers = new List<Register>();
+            Result<IEnumerable<Register>?> registers = Result<IEnumerable<Register>?>.Failure(null, new Exception());
             try
             {
                 registers = repositoryCrud.GetAll();
             }
             catch (IOException ex)
             {
-
+                registers = Result<IEnumerable<Register>?>.Failure(null, ex);
             }
             catch (Exception ex)
             {
-
+                registers = Result<IEnumerable<Register>?>.Failure(null, ex);
             }
             return registers;
         }
