@@ -1,14 +1,13 @@
 ﻿using AgendaBienestar.Interfaces;
 using AgendaBienestar.Model;
-using System.Linq;
 using System.Text.Json;
 
 namespace AgendaBienestar.Repository
 {
     internal class RegisterJsonRepository : IGenericCrud<Register, Guid>
     {
-        private const string JsonDirectory = "../../../Resources/Files";
-        private const string JsonPath = JsonDirectory + "/registers.json";
+        private static readonly string JsonDirectory = FileSystem.AppDataDirectory;
+        private static readonly string JsonPath = Path.Combine(JsonDirectory, "registers.json");
 
         private static readonly JsonSerializerOptions Options = new JsonSerializerOptions
         {
@@ -27,27 +26,19 @@ namespace AgendaBienestar.Repository
             Result result = Result.Failure(new Exception());
             try
             {
-                Directory.CreateDirectory(JsonPath);
-                if (!File.Exists(JsonPath)) File.Create(JsonPath);
-                if (GetAll().IsSuccess)
+                List<Register> listToSave;
+                if (File.Exists(JsonPath))
                 {
-                    IEnumerable<Register>? registers = GetAll().Data;
-                    if (registers != null)
-                    {
-                        registers.Append(obj);
-                        string json = JsonSerializer.Serialize(registers, Options);
-                        File.WriteAllText(JsonPath, json);
-                    }
-                    else
-                    {
-                        registers = new List<Register>();
-                        registers.Append(obj);
-                        string json = JsonSerializer.Serialize(registers, Options);
-                        File.WriteAllText(JsonPath, json);
-                    }
-                    result = Result.Success();
+                    var getResult = GetAll();
+                    if (getResult.IsSuccess && getResult.Data != null) listToSave = getResult.Data.ToList();
+                    else listToSave = new List<Register>();
                 }
-                else throw new Exception("No se pudo acceder al fichero.");
+                else listToSave = new List<Register>();
+
+                listToSave.Add(obj);
+                string json = JsonSerializer.Serialize(listToSave, Options);
+                File.WriteAllText(JsonPath, json);
+                result = Result.Success();
             }
             catch (Exception ex)
             {

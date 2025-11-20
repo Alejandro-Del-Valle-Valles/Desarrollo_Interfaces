@@ -15,6 +15,22 @@
         public int ActivityLevel { get; set; }
         public int Energy { get; set; }
 
+        public Register() { }
+
+        public Register(Guid id)
+        {
+            Id = id;
+        }
+
+        public Register(DateTime date, string comment, int activityLevel, int energy)
+        {
+            Id = Guid.NewGuid();
+            Date = date;
+            Comment = comment;
+            ActivityLevel = activityLevel;
+            Energy = energy;
+        }
+
         public Register(Guid id, DateTime date, string comment, int activityLevel, int energy)
         {
             Id = id;

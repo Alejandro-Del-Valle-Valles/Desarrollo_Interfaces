@@ -1,10 +1,14 @@
+using AgendaBienestar.Interfaces;
 using AgendaBienestar.Model;
 using AgendaBienestar.Repository;
+using AgendaBienestar.Service;
 
 namespace AgendaBienestar.Controllers;
 
 public partial class DailyRegistrationPage : ContentPage
 {
+    private static readonly IGenericService<Register, Guid> RegisterService =
+        new RegisterService(new RegisterJsonRepository());
 	public DailyRegistrationPage()
 	{
 		InitializeComponent();
@@ -46,19 +50,33 @@ public partial class DailyRegistrationPage : ContentPage
     {
         if (!string.IsNullOrWhiteSpace(edComment.Text))
         {
-            RegisterRepository.AddRegister(CreateRegister());
-            await DisplayAlert("Registro Guardado", "El registro se ha guardado correctamente.",
+            Result result = RegisterService.Create(CreateRegister());
+            if (result.IsSuccess)
+            {
+                await DisplayAlert("Registro Guardado", "El registro se ha guardado correctamente.",
+                    "Ok");
+                ClearData();
+            }
+            else 
+                await DisplayAlert("Registro No Guardado", $"El registro no se ha podido guardar debido al siguiente error: {result.Exception?.Message}",
                 "Ok");
-            dpDate.Date = new DateTime();
-            edComment.Text = string.Empty;
-            sdActivity.Value = 5;
-            spEnergy.Value = 1;
         }
         else
         {
             await DisplayAlert("Faltan Datos", "Debes introducir todos los datos para guardar el registro.",
                 "Ok");
         }
+    }
+
+    /// <summary>
+    /// Clear all data fields.
+    /// </summary>
+    private void ClearData()
+    {
+        dpDate.Date = DateTime.Now;
+        edComment.Text = string.Empty;
+        sdActivity.Value = 5;
+        spEnergy.Value = 1;
     }
 
     /// <summary>
