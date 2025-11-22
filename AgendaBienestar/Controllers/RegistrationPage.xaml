@@ -3,5 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AgendaBienestar.Controllers.RegistrationPage"
              Title="Actividad">
+    <ScrollView>
+        <VerticalStackLayout
+            x:Name="RegistersView"
+            Padding="10"
+            Margin="10"/>
+    </ScrollView>
 
 </ContentPage>

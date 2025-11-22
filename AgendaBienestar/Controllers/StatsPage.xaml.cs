@@ -8,7 +8,7 @@ namespace AgendaBienestar.Controllers;
 
 public partial class StatsPage : ContentPage
 {
-    private static readonly IGenericService<Register, Guid> registerService =
+    private static readonly IGenericService<Register, Guid> RegisterService =
         new RegisterService(new RegisterJsonRepository());
 	public StatsPage()
 	{
@@ -18,16 +18,25 @@ public partial class StatsPage : ContentPage
         ShowProgressWeek();
 	}
 
+    /// <summary>
+    /// Show the average Physical Activity of the last week.
+    /// </summary>
     private void ShowAverageActivityOfWeek()
     {
         AverageActivityLabel.Text = $"Promedio actividad física: {CalculateAverageActivityWeek():F2}";
     }
 
+    /// <summary>
+    /// Show the Average Energy of the last week.
+    /// </summary>
     private void ShowAvergaEnergyOfWeek()
     {
         AverageEnergyLabel.Text = $"Promedio energía: {CalculateAverageEnergyWeek():F2}";
     }
 
+    /// <summary>
+    /// Show the general progress of the last week based on the average Activity and Energy.
+    /// </summary>
     private void ShowProgressWeek()
     {
         float activity = CalculateAverageActivityWeek();
@@ -38,9 +47,13 @@ public partial class StatsPage : ContentPage
             : (activityPlusEnergy / 2) / 10.0;
     }
 
+    /// <summary>
+    /// Calculate the average Activity of the last week.
+    /// </summary>
+    /// <returns>float with the average activity of the last week.</returns>
     private float CalculateAverageActivityWeek()
     {
-        List<Register>? registers = registerService.GetAll().Data?
+        List<Register>? registers = RegisterService.GetAll().Data?
             .Where(r => r.Date.IsInLastWeek()).ToList();
         float averageActivity = 0;
         if (registers != null)
@@ -52,9 +65,13 @@ public partial class StatsPage : ContentPage
         return averageActivity;
     }
 
+    /// <summary>
+    /// Calculate the average energy of the last week.
+    /// </summary>
+    /// <returns>float with the average energy of the last week.</returns>
     private float CalculateAverageEnergyWeek()
     {
-        List<Register>? registers = registerService.GetAll().Data?
+        List<Register>? registers = RegisterService.GetAll().Data?
             .Where(r => r.Date.IsInLastWeek()).ToList();
         float averageEnergy = 0;
         if (registers != null)
