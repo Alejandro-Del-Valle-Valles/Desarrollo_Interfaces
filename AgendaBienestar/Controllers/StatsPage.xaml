@@ -12,21 +12,30 @@
             Text="Resumen Semanal"
             FontSize="16"/>
 
-        <VerticalStackLayout
-            BackgroundColor="LimeGreen">
+        <Border
+            BackgroundColor="LightGreen"
+            StrokeShape="RoundRectangle 10,10,10,10" 
+            StrokeThickness="2"
+            Padding="20"
+            Margin="20">
 
-            <Label
-                x:Name="AverageActivityLabel"/>
+            <VerticalStackLayout>
+                <Label
+                    x:Name="AverageActivityLabel"
+                    Padding="10"/>
 
-            <ProgressBar
-                x:Name="GeneralProgressBar"
-                ProgressColor="Aqua"
-                Height="5"
-                HeightRequest="5"/>
+                <ProgressBar
+                    x:Name="GeneralProgressBar"
+                    ProgressColor="Red"
+                    Height="5"
+                    HeightRequest="5"
+                    Margin="10"/>
 
-            <Label
-                x:Name="AverageEnergyLabel"/>
-        </VerticalStackLayout>
+                <Label
+                    x:Name="AverageEnergyLabel"
+                    Padding="10"/>
+            </VerticalStackLayout>
+        </Border>
     </VerticalStackLayout>
 
 </ContentPage>
