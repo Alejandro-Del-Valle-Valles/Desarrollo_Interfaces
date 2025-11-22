@@ -4,4 +4,29 @@
              x:Class="AgendaBienestar.Controllers.StatsPage"
              Title="Estadísticas">
 
+    <VerticalStackLayout
+        Padding="20"
+        Margin="20">
+
+        <Label
+            Text="Resumen Semanal"
+            FontSize="16"/>
+
+        <VerticalStackLayout
+            BackgroundColor="LimeGreen">
+
+            <Label
+                x:Name="AverageActivityLabel"/>
+
+            <ProgressBar
+                x:Name="GeneralProgressBar"
+                ProgressColor="Aqua"
+                Height="5"
+                HeightRequest="5"/>
+
+            <Label
+                x:Name="AverageEnergyLabel"/>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+
 </ContentPage>
