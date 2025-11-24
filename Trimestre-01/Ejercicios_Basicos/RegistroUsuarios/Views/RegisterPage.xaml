@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RegistroUsuarios.Views.RegisterPage"
+             Title="Registro">
+    <ScrollView>
+        
+        <Border
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            BackgroundColor="Beige"
+            StrokeThickness="5"
+            StrokeShape="RoundRectangle 20, 0, 0, 20"
+            Padding="10"
+            Margin="10"
+            WidthRequest="450">
+            
+            <VerticalStackLayout
+                Padding="10"
+                Margin="10">
+                <!-- Name Data -->
+                <Label
+                    Text="Nombre:"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    Padding="5"
+                    Margin="5"/>
+
+                <Entry
+                    x:Name="NameEntry"
+                    Placeholder="Nombre"
+                    ClearButtonVisibility="WhileEditing"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    Margin="5"
+                    MaxLength="50"/>
+
+                <!-- Email Data -->
+                <Label
+                    Text="Correo electrónico:"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    Padding="5"
+                    Margin="5"/>
+
+                <Entry
+                    x:Name="EmailEntry"
+                    Placeholder="Correo electrónico"
+                    ClearButtonVisibility="WhileEditing"
+                    Keyboard="Email"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    Margin="5"/>
+
+                <!-- Password Data -->
+                <Label
+                    Text="Contraseña:"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    Padding="5"
+                    Margin="5"/>
+
+                <Entry
+                    x:Name="PasswordEntry"
+                    Placeholder="Contraseña"
+                    ClearButtonVisibility="WhileEditing"
+                    IsPassword="True"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    Margin="5"/>
+
+                <!-- Send Button -->
+                <Button
+                    x:Name="SendButton"
+                    Text="Registrarse"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    Padding="5"
+                    Margin="5"
+                    BackgroundColor="Aquamarine"/>
+            </VerticalStackLayout>
+        </Border>
+    </ScrollView>
+</ContentPage>
