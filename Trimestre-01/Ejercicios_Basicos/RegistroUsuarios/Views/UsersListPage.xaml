@@ -3,5 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RegistroUsuarios.Views.UsersListPage"
              Title="Lista de Usuarios">
+
+    <ScrollView
+        Padding="10"
+        Margin="10"
+        BackgroundColor="Azure"
+        HorizontalOptions="Center">
+
+        <CollectionView
+            x:Name="clvCustomers">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        BackgroundColor="DarkSeaGreen"
+                        StrokeThickness="3"
+                        StrokeShape="RoundRectangle 10,10,10,10">
+                        <VerticalStackLayout>
+                            <!-- Name Info -->
+                            <HorizontalStackLayout>
+                                <Label
+                                    Text="Nombre: "
+                                    TextColor="Black"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Padding="10"/>
+
+                                <Label 
+                                    Text="{Binding Name}"
+                                    TextColor="Black"
+                                    FontSize="18"
+                                    Padding="10" />
+                            </HorizontalStackLayout>
+
+                            <!-- Email Info -->
+                            <HorizontalStackLayout>
+                                <Label
+                                    Text="Email: "
+                                    TextColor="Black"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Padding="10"/>
+
+                                <Label 
+                                    Text="{Binding Email}"
+                                    TextColor="Black"
+                                    FontSize="18"
+                                    Padding="10" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </ScrollView>
     
 </ContentPage>
