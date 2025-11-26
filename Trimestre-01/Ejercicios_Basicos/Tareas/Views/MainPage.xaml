@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tareas.Views.MainPage">
+
+    <ScrollView
+        VerticalOptions="Fill"
+        HorizontalOptions="Fill">
+        <Border
+            BackgroundColor="DarkOliveGreen"
+            StrokeThickness="5"
+            StrokeShape="RoundRectangle 10, 10, 10, 10"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Height="500"
+            Padding="5"
+            Margin="5">
+            <VerticalStackLayout
+                Padding="30,0"
+                Spacing="25">
+
+                <Image
+                    Source="task.png"
+                    Height="256"
+                    HeightRequest="256"
+                    Width="256"
+                    WidthRequest="256"
+                    Aspect="AspectFit"
+                    Margin="10"/>
+
+                <Label
+                    Text="Administrador de Tareas"
+                    FontFamily="Robot"
+                    FontAttributes="Bold"
+                    FontSize="24"
+                    Padding="10"/>
+            </VerticalStackLayout>
+        </Border>
+    </ScrollView>
+
+</ContentPage>
