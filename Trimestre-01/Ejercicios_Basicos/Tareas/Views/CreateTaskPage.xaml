@@ -81,6 +81,7 @@
 
                 <!-- Save Button -->
                 <Button
+                    Clicked="OnSaveClicked"
                     Text="Guardar Tarea"
                     TextColor="Black"
                     BackgroundColor="Aquamarine"/>

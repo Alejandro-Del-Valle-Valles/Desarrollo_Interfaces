@@ -10,7 +10,7 @@
         HorizontalOptions="Center">
 
         <CollectionView
-            x:Name="CustomersView">
+            x:Name="TasksView">
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
