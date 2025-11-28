@@ -5,17 +5,20 @@
 
     <ScrollView>
         <Border
-            BackgroundColor="AliceBlue"
+            BackgroundColor="AntiqueWhite"
             StrokeThickness="5"
             StrokeShape="RoundRectangle 20, 0, 20, 20"
             Width="600"
-            Height="450"
+            WidthRequest="600"
+            Height="600"
+            HeightRequest="600"
             Padding="10"
             Margin="10"
             HorizontalOptions="Center"
             VerticalOptions="Center">
             
             <VerticalStackLayout>
+                <!-- Title -->
                 <Label
                     Text="Título"
                     TextColor="Black"
@@ -28,9 +31,12 @@
                     x:Name="TitleEntry"
                     Placeholder="Título"
                     TextColor="Black"
+                    BackgroundColor="AliceBlue"
                     HorizontalOptions="Fill"
-                    ClearButtonVisibility="WhileEditing"/>
+                    ClearButtonVisibility="WhileEditing"
+                    Margin="5"/>
 
+                <!-- Comment -->
                 <Label
                     Text="Contenido"
                     TextColor="Black"
@@ -42,9 +48,21 @@
                 <Editor
                     x:Name="ContentEditor"
                     TextColor="Black"
+                    BackgroundColor="AliceBlue"
                     Placeholder="Escribe tus comentarios aquí"
                     HorizontalOptions="Fill"
-                    Height="250"/>
+                    Height="350"
+                    HeightRequest="350"
+                    Margin="5"/>
+
+                <!-- Save -->
+                <Button
+                    Clicked="OnSaveClicked"
+                    Text="Guardar"
+                    BackgroundColor="Aquamarine"
+                    HorizontalOptions="Fill"
+                    Margin="5"
+                    Padding="5"/>
             </VerticalStackLayout>
         </Border>
     </ScrollView>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NotasRapidas.Views.NotesPage"
+             Title="Mis Notas">
+    <ScrollView>
+        <CollectionView
+            x:Name="NotesView">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        BackgroundColor="AntiqueWhite"
+                        StrokeThickness="3"
+                        StrokeShape="RoundRectangle 10,10,10,10">
+                        <VerticalStackLayout>
+                            <!-- Title Info -->
+                            <HorizontalStackLayout>
+                                <Label
+                                    Text="Título: "
+                                    TextColor="Black"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Padding="10"/>
+
+                                <Label 
+                                    Text="{Binding Title}"
+                                    TextColor="Black"
+                                    FontSize="18"
+                                    Padding="10" />
+                            </HorizontalStackLayout>
+
+                            <!-- Comment Info -->
+                            <HorizontalStackLayout>
+                                <Label
+                                    Text="Comentario: "
+                                    TextColor="Black"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Padding="10"/>
+
+                                <Label 
+                                    Text="{Binding Comment}"
+                                    TextColor="Black"
+                                    FontSize="18"
+                                    Padding="10" />
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </ScrollView>
+</ContentPage>
