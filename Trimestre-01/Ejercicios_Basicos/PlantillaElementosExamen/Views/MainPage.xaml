@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PlantillaElementosExamen.Views.MainPage">
+    <!-- Cambiar esto de arriba para ajustarlo al directorio -->
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+
+            <!-- ELEMENTOS BÁSICOS -->
+            <Image
+                Source="dotnet_bot.png"
+                HeightRequest="185"
+                Aspect="AspectFit"/>
+
+            <Label
+                Text="Hello, World!"
+                TextColor="White"
+                FontAttributes="Bold"
+                FontSize="28"
+                Padding="10"
+                Margin="10"/>
+
+            <Button
+                x:Name="CounterBtn"
+                Text="Click me"
+                Clicked="OnCounterClicked"
+                HorizontalOptions="Fill" />
+
+            <Border
+                x:Name="BorderExample"
+                BackgroundColor="Aqua"
+                StrokeThickness="5"
+                StrokeShape="RoundRectangle 20, 20, 20, 20"
+                HorizontalOptions="Center">
+                <!-- Dentro de este broder añadir lo que sea necesario -->
+            </Border>
+
+            <!-- INTRODUCCIÓN DE DATOS -->
+            <Entry
+                x:Name="EntryExample"
+                Placeholder="Texto de ejemplo previsualización"
+                TextColor="Black"
+                MaxLength="50"
+                ClearButtonVisibility="WhileEditing" /> <!-- Permite mostrar un botón que limpia el texto mientras se edite el texto--> 
+
+            <Entry
+                x:Name="EntryPasswordExample"
+                Placeholder="Contraseña"
+                IsPassword="True"/> <!-- Esto hace que lo introducido se muestre como puntos-->
+
+            <!-- Para textos más largos esto -->
+            <Editor
+                x:Name="EditorExample"
+                Placeholder="Texto largo"
+                Height="300"
+                Width="250"/>
+
+            <!-- Fechas (DateTime) por defecto la actual -->
+            <DatePicker
+                x:Name="DatePickerExample" />
+
+            <!-- RadioButtons, solo uno puede estar seleccioando en un grupo -->
+            <VerticalStackLayout>
+                <RadioButton
+                    x:Name="RadioButtonExampleOne"
+                    Content="Ejemplo de RB 1"
+                    GroupName="ExampleRB"
+                    IsChecked="True"
+                    CheckedChanged="OnRadioButtonChanged"/>
+
+                <RadioButton
+                    x:Name="RadioButtonExampleTwo"
+                    Content="Ejemplo de RB 2"
+                    GroupName="ExampleRB"
+                    CheckedChanged="OnRadioButtonChanged"/>
+            </VerticalStackLayout>
+
+            <!-- Swicth automaticamente activado -->
+            <Switch
+                x:Name="SwitchExample"
+                IsToggled="True"
+                Toggled="OnSwitchToggled"/>
+
+            <CheckBox
+                x:Name="CheckBoxExample"
+                IsChecked="True"
+                CheckedChanged="OnCheckBoxChecked"/>
+
+            <!-- RELLENADO DE DATOS EN UNA TABLA DENTRO DE UN BORDER -->
+            <CollectionView
+            x:Name="clvCustomers">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                        BackgroundColor="DarkSeaGreen"
+                        StrokeThickness="3"
+                        StrokeShape="RoundRectangle 10,10,10,10">
+                            <VerticalStackLayout>
+                                <!-- Data One Info -->
+                                <HorizontalStackLayout>
+                                    <Label
+                                    Text="Dato 1: "
+                                    TextColor="Black"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Padding="10"/>
+
+                                    <Label 
+                                    Text="{Binding DataOne}"
+                                    TextColor="Black"
+                                    FontSize="18"
+                                    Padding="10" />
+                                </HorizontalStackLayout>
+
+                                <!-- Date Two Info -->
+                                <HorizontalStackLayout>
+                                    <Label
+                                    Text="Dato 2: "
+                                    TextColor="Black"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    Padding="10"/>
+
+                                    <Label 
+                                    Text="{Binding DataTwo}"
+                                    TextColor="Black"
+                                    FontSize="18"
+                                    Padding="10" />
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <!-- GRID -->
+            <!-- Grid definido con 4 Filas y 2 columnas que se dividen el total de la pantalla de forma equitativa-->
+            <Grid
+                ColumnSpacing="10"
+                ColumnDefinitions="*, *"
+                RowSpacing="10"
+                RowDefinitions="*, *, *, *">
+
+                <Label
+                    Text="Este texto está en la columna 1 fila 1 (0, 0)"
+                    Grid.Column="0"
+                    Grid.Row="0"/>
+
+                <Label
+                    Text="Este texto está en la columna 2 fila 3 (0, 2)"
+                    Grid.Column="1"
+                    Grid.Row="2"/>
+
+                <Label
+                    Text="Este ocupa las dos columnas en la 2 fila"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="1"/>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
