@@ -13,4 +13,15 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
+    <!-- TAB BAR
+    TabBarBackgroundColor="{StaticResource Primary}"
+    TabBarTitleColor="{StaticResource SecondaryDarkText}"
+    TabBarUnselectedColor="Black"
+    TabBarForegroundColor="{StaticResource SecondaryDark}">
+    Esto añadirlo a <Shell
+
+    <TabBar>
+        Aquí va el ShellContent
+    </TabBar
+    -->
 </Shell>

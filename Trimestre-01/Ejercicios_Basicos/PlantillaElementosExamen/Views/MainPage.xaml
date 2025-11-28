@@ -161,6 +161,11 @@
                     Grid.ColumnSpan="2"
                     Grid.Row="1"/>
             </Grid>
+            <!-- Progress Bar: El valor va de 0 a 1 en código, así que hay que hacer / 10 si sabemos que el valor está entre 0 y 100-->
+            <ProgressBar
+                x:Name="ProgressBarExample"
+                Progress="50"
+                ProgressColor="Red"/>
         </VerticalStackLayout>
     </ScrollView>
 

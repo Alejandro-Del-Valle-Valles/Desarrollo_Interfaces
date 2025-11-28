@@ -1,7 +1,18 @@
-﻿namespace PlantillaElementosExamen.Views //TODO: Importante cambiar esto si se añade a una nueva carpeta la main view. También en AppShell
+﻿using System.Text.Json;
+
+namespace PlantillaElementosExamen.Views //TODO: Importante cambiar esto si se añade a una nueva carpeta la main view. También en AppShell
 {
     public partial class MainPage : ContentPage
     {
+        //TODO: Esto se usa para poder hacer operaciones CRUD sobre ficheros en este caso con Json
+        private static readonly string JsonDirectory = FileSystem.AppDataDirectory;
+        private static readonly string JsonPath = Path.Combine(JsonDirectory, "registers.json");
+        private static readonly JsonSerializerOptions Options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
 
         public MainPage()
         {
