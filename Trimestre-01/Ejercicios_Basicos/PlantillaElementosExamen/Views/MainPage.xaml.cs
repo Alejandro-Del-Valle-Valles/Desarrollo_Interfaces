@@ -14,15 +14,25 @@ namespace PlantillaElementosExamen.Views //TODO: Importante cambiar esto si se a
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
+        //TODO: El del profe es este:
+        private static string _filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "contacts.json");
+
         public MainPage()
         {
             InitializeComponent();
             MostrarDatosTabla();
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        private void OnToolBarButtonClicked(object? sender, EventArgs e)
+        {
+            //Código a ejecutar del tool bar
+        }
+
+        private async void OnCounterClicked(object? sender, EventArgs e)
         {
             //Método para botones
+            bool aceptado = await DisplayAlert("¿Quieres continuar?", "Desde continuar con la acción:", "Si", "No");
+            DisplayAlert("Error", "Ocurrió un error.", "Ok");
         }
 
         private void OnRadioButtonChanged(object? sender, CheckedChangedEventArgs e)
@@ -54,6 +64,22 @@ namespace PlantillaElementosExamen.Views //TODO: Importante cambiar esto si se a
         {
             clvCustomers.ItemsSource = null;  //new IEnumerable<Object>();
             //Para asiganr datos a la vista dinámica.
+        }
+
+        //Seleccionar una imagen abriendo el explorador de archivos
+        private async void PhotoPicker()
+        {
+            // Open a windows to selecet a photo
+            FileResult? selectedImage = await MediaPicker.Default.PickPhotoAsync();
+
+            if (selectedImage != null)
+            {
+                //Código a ejecutar
+            }
+            else
+            {
+                await DisplayAlert("Error", "No se pudo seleccionar ninguna imagen.", "Aceptar");
+            }
         }
     }
 }

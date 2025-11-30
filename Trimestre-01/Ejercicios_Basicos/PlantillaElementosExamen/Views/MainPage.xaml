@@ -3,6 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PlantillaElementosExamen.Views.MainPage">
     <!-- Cambiar esto de arriba para ajustarlo al directorio -->
+    <!-- Tool Bar -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Guardar"
+            Clicked="OnToolBarButtonClicked"/>
+        <ToolbarItem
+            Text="Modificar"
+            Clicked="OnToolBarButtonClicked"/>
+        <ToolbarItem
+            Text="Eliminar"
+            Clicked="OnToolBarButtonClicked"/>
+        <ToolbarItem
+            Text="Limpiar"
+            Clicked="OnToolBarButtonClicked"/>
+    </ContentPage.ToolbarItems>
 
     <ScrollView>
         <VerticalStackLayout
