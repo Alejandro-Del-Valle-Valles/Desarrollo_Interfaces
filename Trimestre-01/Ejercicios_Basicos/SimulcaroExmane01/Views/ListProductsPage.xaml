@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SimulcaroExmane01.Views.ListProductsPage"
+             Title="Inventario">
+    <ScrollView>
+        <VerticalStackLayout>
+            <HorizontalStackLayout
+                HorizontalOptions="Center">
+                <Switch
+                    IsToggled="False"
+                    Toggled="OnOnlyAviableStockSwitched"/>
+                <Label
+                    Text="Mostrar solo los que tienen Stock"/>
+            </HorizontalStackLayout>
+            <CollectionView
+                x:Name="ProductosView">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            BackgroundColor="DarkSeaGreen"
+                            StrokeThickness="3"
+                            StrokeShape="RoundRectangle 10,10,10,10">
+                            <VerticalStackLayout>
+                                <HorizontalStackLayout>
+                                    <Label
+                                        Text="Nombre: "
+                                        TextColor="Black"
+                                        FontSize="18"
+                                        FontAttributes="Bold"
+                                        Padding="10"/>
+
+                                    <Label 
+                                        Text="{Binding Nombre}"
+                                        TextColor="Black"
+                                        FontSize="18"
+                                        Padding="10" />
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout>
+                                    <Label
+                                        Text="Categoria: "
+                                        TextColor="Black"
+                                        FontSize="18"
+                                        FontAttributes="Bold"
+                                        Padding="10"/>
+
+                                    <Label 
+                                        Text="{Binding Categoria}"
+                                        TextColor="Black"
+                                        FontSize="18"
+                                        Padding="10" />
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout>
+                                    <Label
+                                        Text="Stock: "
+                                        TextColor="Black"
+                                        FontSize="18"
+                                        FontAttributes="Bold"
+                                        Padding="10"/>
+
+                                    <Label 
+                                        Text="{Binding Stock}"
+                                        TextColor="Black"
+                                        FontSize="18"
+                                        Padding="10" />
+                                </HorizontalStackLayout>
+
+                                <Button
+                                    Text="Eliminar Producto"
+                                    BackgroundColor="Red"
+                                    TextColor="White"
+                                    FontSize="16"
+                                    Command="{Binding Source={x:Reference ProductosView}, Path=BindingContext.DeleteProductCommand}"
+                                    CommandParameter="{Binding .}"
+                                    Margin="10"/>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

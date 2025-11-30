@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SimulcaroExmane01.Views.MainPage">
+
+    <ScrollView>
+        <Grid>
+            <Image
+                Aspect="AspectFill"
+                Source="maxresdefault.jpg"/>
+
+            <Label
+                Text="TechStore"
+                TextColor="White"
+                FontAttributes="Bold"
+                FontSize="28"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                Padding="10"
+                Margin="10"/>
+
+            <Label
+                Text="Alejandro del Valle Vallés"
+                TextColor="White"
+                HorizontalOptions="Center"
+                VerticalOptions="End"
+                Padding="10"
+                Margin="10"/>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SimulcaroExmane01.Views.CreateProductPage"
+             Title="Crear Productos">
+    <ScrollView>
+        <Border
+            StrokeThickness="5"
+            StrokeShape="RoundRectangle 10, 10, 10, 10"
+            BackgroundColor="AliceBlue"
+            Width="500"
+            WidthRequest="500"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Padding="10"
+            Margin="10">
+            <VerticalStackLayout>
+                
+                <Label
+                    Text="Nombre del producto:"
+                    TextColor="Black"
+                    Padding="5"
+                    Margin="5"/>
+
+                <Entry
+                    x:Name="NombreEntry"
+                    Placeholder="Introduce el título"
+                    TextColor="Black"
+                    Margin="5"
+                    HorizontalOptions="Fill"/>
+
+                <Label
+                    Text="Categoría del producto:"
+                    TextColor="Black"
+                    Padding="5"
+                    Margin="5"/>
+
+                <Entry
+                    x:Name="CategoriaEntry"
+                    Placeholder="Introduce la categoria"
+                    TextColor="Black"
+                    Margin="5"
+                    HorizontalOptions="Fill"/>
+
+                <Label
+                    Text="Stock"
+                    TextColor="Black"
+                    Padding="5"
+                    Margin="5"/>
+
+                <Stepper
+                    x:Name="StockStepper"
+                    Minimum="0"
+                    Value="1"
+                    BackgroundColor="Gray"
+                    Margin="5"/>
+
+                <Label
+                    Text="{Binding Source={x:Reference StockStepper}, Path=Value}"
+                    Padding="10"
+                    TextColor="Black"/>
+
+                <Button
+                    Clicked="OnGuardarClicked"
+                    Text="Guardar"
+                    BackgroundColor="Aquamarine"
+                    HorizontalOptions="Fill"/>
+            </VerticalStackLayout>
+        </Border>
+    </ScrollView>
+</ContentPage>

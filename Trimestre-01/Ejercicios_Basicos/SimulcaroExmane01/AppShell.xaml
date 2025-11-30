@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="SimulcaroExmane01.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:SimulcaroExmane01.Views"
+    Title="Inventario TechStore">
+
+    <ShellContent
+        Title="Inicio"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+    <ShellContent
+        Title="Crear Producto"
+        ContentTemplate="{DataTemplate local:CreateProductPage}"
+        Route="CreateProductPage" />
+
+    <ShellContent
+        Title="Listar productos"
+        ContentTemplate="{DataTemplate local:ListProductsPage}"
+        Route="ListProductsPage" />
+
+</Shell>
