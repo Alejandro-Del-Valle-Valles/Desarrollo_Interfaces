@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ModoConectado.ViewController.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+
+            <!-- Departments and Localizations -->
+            <ScrollView>
+                <HorizontalStackLayout
+                    Spacing="40"
+                    Padding="20">
+                    <!-- Departments -->
+                    <VerticalStackLayout>
+                        <Label
+                            Text="Departamentos"
+                            TextColor="Red"
+                            FontAttributes="Bold"
+                            TextDecorations="Underline"/>
+
+                        <CollectionView x:Name="DepartmentsCollection">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label
+                                        Text="{Binding Department}"
+                                        Padding="0,2">
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroupList>
+                                                <VisualStateGroup Name="CommonStates">
+                                                    <VisualState Name="Normal" />
+                                                    <VisualState Name="PointerOver">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="Opacity" Value="0.6" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateGroupList>
+                                        </VisualStateManager.VisualStateGroups>
+                                    </Label>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+
+                    <!-- Locations -->
+                    <VerticalStackLayout>
+                        <Label
+                            Text="Localizaciones"
+                            TextColor="Red"
+                            FontAttributes="Bold"
+                            TextDecorations="Underline"/>
+
+                        <CollectionView x:Name="LozalizationsCollection">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label 
+                                        Text="{Binding Localization}"
+                                        Padding="0,2">
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroupList>
+                                                <VisualStateGroup Name="CommonStates">
+                                                    <VisualState Name="Normal" />
+                                                    <VisualState Name="PointerOver">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="Opacity" Value="0.6" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateGroupList>
+                                        </VisualStateManager.VisualStateGroups>
+                                    </Label>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <!-- Employees -->
+            <VerticalStackLayout
+                Padding="20"
+                Spacing="40">
+                <Grid
+                    ColumnDefinitions="*,*,*,*,*"
+                    Padding="5">
+                    <Label Grid.Column="0" Text="Apellidos" FontAttributes="Bold" TextColor="Red" TextDecorations="Underline" />
+                    <Label Grid.Column="1" Text="Oficio" FontAttributes="Bold" TextColor="Red" TextDecorations="Underline" />
+                    <Label Grid.Column="2" Text="Salario" FontAttributes="Bold" TextColor="Red" TextDecorations="Underline" />
+                    <Label Grid.Column="3" Text="Comisión" FontAttributes="Bold" TextColor="Red" TextDecorations="Underline" />
+                    <Label Grid.Column="4" Text="Fecha Alta" FontAttributes="Bold" TextColor="Red" TextDecorations="Underline" />
+                </Grid>
+
+                <ScrollView>
+                    <CollectionView x:Name="EmployeesCollection" >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="*,*,*,*,*" Padding="5">
+                                    <Label Grid.Column="0" Text="{Binding Surname}" TextColor="Blue">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                                Tapped="OnSurnameTapped" 
+                                                CommandParameter="{Binding .}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+
+                                    <Label Grid.Column="1" Text="{Binding Craft}" />
+                                    <Label Grid.Column="2" Text="{Binding Salary, StringFormat='{0:F2}'}" />
+                                    <Label Grid.Column="3" Text="{Binding Commission, StringFormat='{0:F2}'}" />
+                                    <Label Grid.Column="4" Text="{Binding RegistrationDate, StringFormat='{0:dd/MM/yyyy}'}" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+            </VerticalStackLayout>
+
+            <HorizontalStackLayout
+                Spacing="40"
+                Padding="20">
+
+                <!-- Surname -->
+                <Entry
+                    x:Name="EtSurname"
+                    BackgroundColor="AliceBlue"
+                    TextColor="Black"
+                    Placeholder="Apellido"
+                    Width="150"
+                    WidthRequest="150"
+                    MinimumWidthRequest="150"/>
+
+                <!-- Craft -->
+                <Entry
+                    x:Name="EtCraft"
+                    BackgroundColor="AliceBlue"
+                    TextColor="Black"
+                    Placeholder="Oficio"
+                    Width="150"
+                    WidthRequest="150"
+                    MinimumWidthRequest="150"/>
+
+                <!-- Salary -->
+                <Entry
+                    x:Name="EtSalary"
+                    Keyboard="Numeric"
+                    BackgroundColor="AliceBlue"
+                    TextColor="Black"
+                    Placeholder="Salario"
+                    Width="150"
+                    WidthRequest="150"
+                    MinimumWidthRequest="150"/>
+
+                <!-- Commission -->
+                <Entry
+                    x:Name="EtCommission"
+                    Keyboard="Numeric"
+                    BackgroundColor="AliceBlue"
+                    TextColor="Black"
+                    Placeholder="Comision"
+                    Width="150"
+                    WidthRequest="150"
+                    MinimumWidthRequest="150"/>
+
+                <DatePicker
+                    x:Name="DpRegistrationDate"
+                    BackgroundColor="AliceBlue"
+                    TextColor="Black"/>
+            </HorizontalStackLayout>
+
+            <!-- Search Employees -->
+            <HorizontalStackLayout
+                Spacing="40"
+                Padding="20">
+
+                <Label
+                    Text="Buscar por:"
+                    TextColor="Red"
+                    FontAttributes="Bold"
+                    TextDecorations="Underline"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center"
+                    Padding="20"/>
+
+                <!-- Registration Date -->
+                <VerticalStackLayout
+                    Padding="20">
+                    <!-- Search by Surname -->
+                    <Label Text="Apellido">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value="0.6" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Tapped="OnLabelSearchTapped" 
+                                CommandParameter="SN" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <!-- Search by Craft -->
+                    <Label Text="Oficio">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value="0.6" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Tapped="OnLabelSearchTapped" 
+                                CommandParameter="CR" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <!-- Search by Salary -->
+                    <Label Text="Salario">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value="0.6" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Tapped="OnLabelSearchTapped" 
+                                CommandParameter="SY" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <!-- Search by Commission -->
+                    <Label
+                        Text="Comisión">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value="0.6" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Tapped="OnLabelSearchTapped" 
+                                CommandParameter="CM" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <!-- Search by Registration Date -->
+                    <Label Text="Fecha Alta">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value="0.6" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Tapped="OnLabelSearchTapped" 
+                                CommandParameter="RD" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+
+                <!-- Search Tab -->
+                <Entry
+                    x:Name="EtSearch"
+                    Placeholder="Buscar"
+                    BackgroundColor="AliceBlue"
+                    TextColor="Black"
+                    Width="400"
+                    WidthRequest="400"
+                    MinimumWidthRequest="400"
+                    ClearButtonVisibility="WhileEditing"
+                    VerticalOptions="Center"/>
+
+                <!-- Search -->
+                <Button
+                    Text="Buscar"
+                    Clicked="OnSearchClicked"
+                    Height="50"
+                    HeightRequest="50"
+                    MaximumHeightRequest="50">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="0.6" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
+
+                <!-- Clear Fields -->
+                <Button
+                    Text="Limpiar"
+                    Clicked="OnClearClicked"
+                    Height="50"
+                    HeightRequest="50"
+                    MaximumHeightRequest="50">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="0.6" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
+            </HorizontalStackLayout>
+
+            <!-- Action Buttons -->
+            <HorizontalStackLayout
+                Spacing="40"
+                Padding="20"
+                HorizontalOptions="End">
+                
+                <!-- Create -->
+                <Button
+                    Text="Guardar"
+                    FontAttributes="Bold"
+                    Clicked="OnSaveClicked"
+                    BackgroundColor="Green">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="0.6" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
+
+                <!-- Update -->
+                <Button
+                    Text="Actualizar"
+                    FontAttributes="Bold"
+                    Clicked="OnUpdateClicked"
+                    BackgroundColor="DeepSkyBlue">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="0.6" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
+
+                <!-- Delete -->
+                <Button
+                    Text="Borrar"
+                    FontAttributes="Bold"
+                    Clicked="OnDeleteClicked"
+                    BackgroundColor="Red">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="0.6" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
