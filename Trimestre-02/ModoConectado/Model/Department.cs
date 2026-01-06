@@ -34,10 +34,8 @@ namespace ModoConectado.Model
         }
 
         public Department(string name, string localization)
-        {
-            Name = name;
-            Localization = localization;
-        }
+        : this(0, name, localization)
+        { }
 
         public bool Equals(Department? other)
         {

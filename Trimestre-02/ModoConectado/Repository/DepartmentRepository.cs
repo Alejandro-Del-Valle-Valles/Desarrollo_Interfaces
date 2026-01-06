@@ -1,13 +1,39 @@
 ﻿using ModoConectado.Interfaces;
 using ModoConectado.Model;
+using ModoConectado.Service;
 
 namespace ModoConectado.Repository
 {
     class DepartmentRepository : ICrudRepository<Department, int>
     {
-        public Task<Result> InitializeRepository()
+        public async Task<Result> InitializeRepository()
         {
-            throw new NotImplementedException();
+            return await Task.Run(() =>
+            {
+                Result result;
+                try
+                {
+                    using (var connection = SqliteDbConnectionService.GetConnection())
+                    {
+                        connection.Open();
+                        var command = connection.CreateCommand();
+                        command.CommandText = """
+                                              CREATE TABLE IF NOT EXISTS Departamento(
+                                              id_dep INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              nombre TEXT NOT NULL,
+                                              localizacion TEXT NOT NULL)
+                                              """;
+                        command.ExecuteNonQuery();
+                    }
+                    result = Result.Success();
+                }
+                catch (Exception ex)
+                {
+                    result = Result.Failure(ex);
+                }
+
+                return result;
+            });
         }
 
         public Task<Result<IEnumerable<Department>?>> GetAll()

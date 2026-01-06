@@ -12,13 +12,6 @@ namespace ModoConectado.Model
             set => _id = value > 0 ? value : _id;
         }
 
-        private string _name = "Desconocido";
-        public string Name
-        {
-            get => _name;
-            set => _name = string.IsNullOrWhiteSpace(value) ? _name : value.CapitalizeAll();
-        }
-
         private string _surname = "Desconocido";
         public string Surname
         {
@@ -67,26 +60,20 @@ namespace ModoConectado.Model
             set => _idDepartment = value > 0 ? value : _idDepartment;
         }
 
-        public Employee(int id, string name, string surname, string craft, float salary, float commission, int idDepartment)
+        public Employee(int id, string surname, string craft, float salary, float commission, string registrationDate, int idDepartment)
         {
             Id = id;
-            Name = name;
             Surname = surname;
             Craft = craft;
             Salary = salary;
             Commission = commission;
+            RegistrationDate = registrationDate;
             IdDepartment = idDepartment;
         }
 
-        public Employee(string name, string surname, string craft, float salary, float commission, int idDepartment)
-        {
-            Name = name;
-            Surname = surname;
-            Craft = craft;
-            Salary = salary;
-            Commission = commission;
-            IdDepartment = idDepartment;
-        }
+        public Employee(string surname, string craft, float salary, float commission, string registrationDate, int idDepartment)
+            : this(0, surname, craft, salary, commission, registrationDate, idDepartment)
+        { }
 
         public bool Equals(Employee? other)
         {
@@ -111,9 +98,6 @@ namespace ModoConectado.Model
         {
             if (ReferenceEquals(this, other)) return 0;
             if (other is null) return 1;
-
-            var nameComparison = string.Compare(_name, other._name, StringComparison.Ordinal);
-            if (nameComparison != 0) return nameComparison;
 
             var surnameComparison = string.Compare(_surname, other._surname, StringComparison.Ordinal);
             if (surnameComparison != 0) return surnameComparison;
