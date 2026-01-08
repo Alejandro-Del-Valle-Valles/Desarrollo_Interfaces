@@ -52,9 +52,9 @@ namespace ModoConectado.Service
         }
 
         /// <summary>
-        /// Search and return the employee in the repository by his ID
+        /// Search and return the employee from the repository by his ID
         /// </summary>
-        /// <param name="id">int id of the searched Department</param>
+        /// <param name="id">int id of the searched Employee</param>
         /// <returns>Task with Result with the searched Employee if Success when all goes great or Failure without the Employee if something went wrong</returns>
         public Task<Result<Employee?>> GetById(int id)
         {

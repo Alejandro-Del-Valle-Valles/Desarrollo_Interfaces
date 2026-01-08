@@ -26,6 +26,8 @@ namespace ModoConectado.Model
             set => _localization = string.IsNullOrWhiteSpace(value) ? _localization.Capitalize() : value.Trim();
         }
 
+        public Department() { }
+
         public Department(int id, string name, string localization)
         {
             Id = id;

@@ -66,8 +66,4 @@
 		<PackageReference Include="SQLitePCLRaw.bundle_winsqlite3" Version="2.1.11" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Exceptions\" />
-	</ItemGroup>
-
 </Project>

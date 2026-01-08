@@ -10,73 +10,47 @@
 
             <!-- Departments and Localizations -->
             <ScrollView>
-                <HorizontalStackLayout
-                    Spacing="40"
-                    Padding="20">
-                    <!-- Departments -->
-                    <VerticalStackLayout>
-                        <Label
-                            Text="Departamentos"
-                            TextColor="Red"
-                            FontAttributes="Bold"
-                            TextDecorations="Underline"/>
-
-                        <CollectionView x:Name="DepartmentsCollection">
+                <VerticalStackLayout
+                    Padding="20"
+                    Spacing="40">
+                    <Grid
+                        ColumnDefinitions="150,150"
+                        Padding="5">
+                        <Label Grid.Column="0" Text="Departamentos" FontAttributes="Bold" TextColor="Red" TextDecorations="Underline"/>
+                        <Label Grid.Column="1" Text="Localización" FontAttributes="Bold" TextColor="Red" TextDecorations="Underline"/>
+                    </Grid>
+                    <ScrollView>
+                        <CollectionView x:Name="DepartmentsCollection" >
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Label
-                                        Text="{Binding Department}"
-                                        Padding="0,2">
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroupList>
-                                                <VisualStateGroup Name="CommonStates">
-                                                    <VisualState Name="Normal" />
-                                                    <VisualState Name="PointerOver">
-                                                        <VisualState.Setters>
-                                                            <Setter Property="Opacity" Value="0.6" />
-                                                        </VisualState.Setters>
-                                                    </VisualState>
-                                                </VisualStateGroup>
-                                            </VisualStateGroupList>
-                                        </VisualStateManager.VisualStateGroups>
-                                    </Label>
+                                    <Grid ColumnDefinitions="200,200" Padding="5">
+                                        <Label Grid.Column="0" Text="{Binding Name}">
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroupList>
+                                                    <VisualStateGroup Name="CommonStates">
+                                                        <VisualState Name="Normal" />
+                                                        <VisualState Name="PointerOver">
+                                                            <VisualState.Setters>
+                                                                <Setter Property="Opacity" Value="0.6" />
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateGroupList>
+                                            </VisualStateManager.VisualStateGroups>
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                    Tapped="OnDepartmentTapped" 
+                                                    CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+
+                                        <Label Grid.Column="1" Text="{Binding Localization}" />
+                                    </Grid>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
-                    </VerticalStackLayout>
-
-                    <!-- Locations -->
-                    <VerticalStackLayout>
-                        <Label
-                            Text="Localizaciones"
-                            TextColor="Red"
-                            FontAttributes="Bold"
-                            TextDecorations="Underline"/>
-
-                        <CollectionView x:Name="LozalizationsCollection">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Label 
-                                        Text="{Binding Localization}"
-                                        Padding="0,2">
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroupList>
-                                                <VisualStateGroup Name="CommonStates">
-                                                    <VisualState Name="Normal" />
-                                                    <VisualState Name="PointerOver">
-                                                        <VisualState.Setters>
-                                                            <Setter Property="Opacity" Value="0.6" />
-                                                        </VisualState.Setters>
-                                                    </VisualState>
-                                                </VisualStateGroup>
-                                            </VisualStateGroupList>
-                                        </VisualStateManager.VisualStateGroups>
-                                    </Label>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </VerticalStackLayout>
-                </HorizontalStackLayout>
+                    </ScrollView>
+                </VerticalStackLayout>
             </ScrollView>
 
             <!-- Employees -->
@@ -163,6 +137,7 @@
                     WidthRequest="150"
                     MinimumWidthRequest="150"/>
 
+                <!-- Registration Date -->
                 <DatePicker
                     x:Name="DpRegistrationDate"
                     BackgroundColor="AliceBlue"
@@ -183,11 +158,12 @@
                     VerticalTextAlignment="Center"
                     Padding="20"/>
 
-                <!-- Registration Date -->
                 <VerticalStackLayout
                     Padding="20">
                     <!-- Search by Surname -->
-                    <Label Text="Apellido">
+                    <Label 
+                        x:Name="SearchSurnameLabel"
+                        Text="Apellido">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
                                 <VisualStateGroup Name="CommonStates">
@@ -208,7 +184,9 @@
                     </Label>
 
                     <!-- Search by Craft -->
-                    <Label Text="Oficio">
+                    <Label 
+                        x:Name="SearchCraftLabel"
+                        Text="Oficio">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
                                 <VisualStateGroup Name="CommonStates">
@@ -229,7 +207,9 @@
                     </Label>
 
                     <!-- Search by Salary -->
-                    <Label Text="Salario">
+                    <Label
+                        x:Name="SearchSalaryLable"
+                        Text="Salario">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
                                 <VisualStateGroup Name="CommonStates">
@@ -251,6 +231,7 @@
 
                     <!-- Search by Commission -->
                     <Label
+                        x:Name="SearchComisionLable"
                         Text="Comisión">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
@@ -272,7 +253,9 @@
                     </Label>
 
                     <!-- Search by Registration Date -->
-                    <Label Text="Fecha Alta">
+                    <Label
+                        x:Name="SearchDateLable"
+                        Text="Fecha Alta">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
                                 <VisualStateGroup Name="CommonStates">

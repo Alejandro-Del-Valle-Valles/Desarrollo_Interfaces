@@ -53,14 +53,16 @@ namespace ModoConectado.Model
             }
         }
 
-        private int _idDepartment = 0;
-        public int IdDepartment
+        private int? _idDepartment = null;
+        public int? IdDepartment
         {
             get => _idDepartment;
-            set => _idDepartment = value > 0 ? value : _idDepartment;
+            set => _idDepartment = value is > 0 ? value : _idDepartment;
         }
 
-        public Employee(int id, string surname, string craft, float salary, float commission, string registrationDate, int idDepartment)
+        public Employee() { }
+
+        public Employee(int id, string surname, string craft, float salary, float commission, string registrationDate, int? idDepartment)
         {
             Id = id;
             Surname = surname;
@@ -71,7 +73,7 @@ namespace ModoConectado.Model
             IdDepartment = idDepartment;
         }
 
-        public Employee(string surname, string craft, float salary, float commission, string registrationDate, int idDepartment)
+        public Employee(string surname, string craft, float salary, float commission, string registrationDate, int? idDepartment)
             : this(0, surname, craft, salary, commission, registrationDate, idDepartment)
         { }
 
