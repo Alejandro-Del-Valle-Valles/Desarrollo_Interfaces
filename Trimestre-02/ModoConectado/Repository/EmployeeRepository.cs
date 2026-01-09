@@ -5,7 +5,7 @@ using ModoConectado.Service;
 
 namespace ModoConectado.Repository
 {
-    class EmployeeRepository : ICrudRepository<Employee, int>
+    class EmployeeRepository : ICrudEmployeeRepository
     {
         /// <summary>
         /// Create the table of Employees if not exists.
@@ -95,6 +95,58 @@ namespace ModoConectado.Repository
         }
 
         /// <summary>
+        /// Get all employees from the specified department from DB
+        /// </summary>
+        /// <param name="id">int id of the department</param>
+        /// <returns>Task with Result with the Employees if Success when all goes great or Failure without Employees if something went wrong</returns>
+        public Task<Result<IEnumerable<Employee>?>> GetAllByDepartmentId(int id)
+        {
+            return Task.Run(() =>
+            {
+                Result<IEnumerable<Employee>?> result;
+                try
+                {
+                    IList<Employee>? employees = new List<Employee>();
+                    using (var connection = SqliteDbConnectionService.GetConnection())
+                    {
+                        connection.Open();
+                        var command = connection.CreateCommand();
+                        command.CommandText = """
+                                              SELECT id_emp, apellido, oficio, salario, comision, fecha_alt, id_departamento
+                                              FROM Empleado
+                                              WHERE id_departamento = @id;
+                                              """;
+                        command.Parameters.AddWithValue("@id", id);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                employees.Add(new Employee
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Surname = reader.GetString(1),
+                                    Craft = reader.GetString(2),
+                                    Salary = reader.GetFloat(3),
+                                    Commission = reader.GetFloat(4),
+                                    RegistrationDate = reader.GetString(5),
+                                    IdDepartment = reader.GetInt32(6)
+                                });
+                            }
+                        }
+                    }
+
+                    result = Result<IEnumerable<Employee>?>.Success(employees);
+                }
+                catch (Exception ex)
+                {
+                    result = Result<IEnumerable<Employee>?>.Failure(ex);
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
         /// Search and return the employee from the DB by his ID
         /// </summary>
         /// <param name="id">int id of the searched Employee</param>
@@ -162,7 +214,7 @@ namespace ModoConectado.Repository
                         connection.Open();
                         var command = connection.CreateCommand();
                         command.CommandText = """
-                                              INSERT INTO Empleado(apelliddo, oficio, salario, comision, fecha_alt, id_departamento)
+                                              INSERT INTO Empleado(apellido, oficio, salario, comision, fecha_alt, id_departamento)
                                               VALUES(@surname, @craft, @salary, @commission, @reg_date, @id_dept);
                                               """;
                         command.Parameters.AddWithValue("@surname", obj.Surname);
@@ -203,7 +255,7 @@ namespace ModoConectado.Repository
                         command.CommandText = """
                                               UPDATE Empleado
                                               SET apellido = @surname, oficio = @craft, salario = @salary, comision = @commission, 
-                                              fecha_alt = @reg_date, id_deptartamento = @id_dept
+                                              fecha_alt = @reg_date, id_departamento = @id_dept
                                               WHERE id_emp = @id;
                                               """;
                         command.Parameters.AddWithValue("@id", obj.Id);

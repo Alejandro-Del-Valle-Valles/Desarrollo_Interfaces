@@ -1,9 +1,13 @@
-﻿using ModoConectado.Extenisons;
+﻿using System.Globalization;
+using ModoConectado.Extenisons;
+using static System.Globalization.CultureInfo;
 
 namespace ModoConectado.Model
 {
     class Employee : IEquatable<Employee>, IComparable<Employee>
     {
+
+        public static readonly string DATE_FORMAT = "dd-MM-yyyy";
 
         private int _id = 0;
         public int Id
@@ -40,16 +44,16 @@ namespace ModoConectado.Model
             set => _commission = value > 0f ? value : _commission;
         }
 
-        private string _registrationDate = DateTime.Now.ToString("dd-MM-yyyy");
+        private string _registrationDate = DateTime.Now.ToString(DATE_FORMAT);
         public string RegistrationDate
         {
             get => _registrationDate;
             set
             {
-                bool isParsed = DateTime.TryParse(value.Trim(), out DateTime date);
+                bool isParsed = DateTime.TryParseExact(value.Trim(), DATE_FORMAT, InvariantCulture, DateTimeStyles.None, out DateTime date);
                 _registrationDate = isParsed 
-                    ? date.ToString("dd-MM-yyyy") 
-                    : DateTime.Now.ToString("dd-MM-yyyy");
+                    ? date.ToString(DATE_FORMAT) 
+                    : DateTime.Now.ToString(DATE_FORMAT);
             }
         }
 
@@ -76,6 +80,13 @@ namespace ModoConectado.Model
         public Employee(string surname, string craft, float salary, float commission, string registrationDate, int? idDepartment)
             : this(0, surname, craft, salary, commission, registrationDate, idDepartment)
         { }
+
+        /// <summary>
+        /// Return the RegistrationDate on DateTime Object
+        /// </summary>
+        /// <returns>DateTime</returns>
+        public DateTime GetParsedDate() => DateTime.ParseExact(RegistrationDate, DATE_FORMAT,
+            InvariantCulture);
 
         public bool Equals(Employee? other)
         {

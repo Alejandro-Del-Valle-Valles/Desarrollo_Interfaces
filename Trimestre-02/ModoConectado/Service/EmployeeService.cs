@@ -4,7 +4,7 @@ using ModoConectado.Repository;
 
 namespace ModoConectado.Service
 {
-    class EmployeeService(ICrudRepository<Employee, int> _repository) : IService<Employee, int>
+    class EmployeeService(ICrudEmployeeRepository _repository) : IServiceEmployee
     {
 
         /// <summary>
@@ -41,6 +41,29 @@ namespace ModoConectado.Service
                 try
                 {
                     result = _repository.GetAll().Result;
+                }
+                catch (Exception ex)
+                {
+                    result = Result<IEnumerable<Employee>?>.Failure(ex);
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
+        /// Get all employees from the specified department
+        /// </summary>
+        /// <param name="id">int ID of the department</param>
+        /// <returns>Task with Result with the Employees if Success when all goes great or Failure without Employees if something went wrong</returns>
+        public Task<Result<IEnumerable<Employee>?>> GetAllByDepartmentId(int id)
+        {
+            return Task.Run(() =>
+            {
+                Result<IEnumerable<Employee>?> result;
+                try
+                {
+                    result = _repository.GetAllByDepartmentId(id).Result;
                 }
                 catch (Exception ex)
                 {
