@@ -1,4 +1,5 @@
-﻿using ModoConectado.Interfaces;
+﻿using ModoConectado.Enums;
+using ModoConectado.Interfaces;
 using ModoConectado.Model;
 using ModoConectado.Repository;
 using ModoConectado.Service;
@@ -16,6 +17,7 @@ namespace ModoConectado.ViewController
 
         private Employee? _selectedEmployee = null;
         private Department? _selectedDepartment = null;
+        private SearchTypes? _selectedSearchTypes = null;
 
         public MainPage()
         {
@@ -38,6 +40,7 @@ namespace ModoConectado.ViewController
                 if (!result.IsSuccess) await DisplayAlert("Error al inicializar la BBDD", result.Exception?.Message ?? "Error desconocido", "Ok");
 
                 await LoadDepartmentsAsync();
+                SearchCollection.ItemsSource = Enum.GetValues(typeof(SearchTypes));
             }
             catch (Exception ex)
             {
@@ -64,11 +67,6 @@ namespace ModoConectado.ViewController
         }
 
         //CRUD CALL METHODS
-        private void OnLabelSearchTapped(object? sender, TappedEventArgs e)
-        {
-            DisplayAlert("Pulsado", "Busqueda Pulsada", "Ok");
-            //TODO: Implementar lógica de busqueda de empleados
-        }
 
         /// <summary>
         /// Save the new employee if all data is filled and a department is selected.
@@ -165,14 +163,85 @@ namespace ModoConectado.ViewController
         }
 
         //FORM METHODS
-        private void OnClearClicked(object? sender, EventArgs e)
+
+        /// <summary>
+        /// Save the attribute to search employees
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSearchTypeChanged(object? sender, SelectionChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            _selectedSearchTypes = (SearchTypes)e.CurrentSelection.FirstOrDefault()!;
         }
 
+        /// <summary>
+        /// Clear the list of employees to show nothing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnClearClicked(object? sender, EventArgs e)
+        {
+            EmployeesCollection.ItemsSource = null;
+        }
+
+        /// <summary>
+        /// Handles the search logic by identifying the search type and updating the UI.
+        /// </summary>
         private async void OnSearchClicked(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            string searchText = EtSearch.Text?.Trim() ?? string.Empty;
+            if (_selectedSearchTypes == null || string.IsNullOrWhiteSpace(searchText))
+            {
+                await DisplayAlert("Error", "Debes seleccionar un tipo e introducir un texto.", "Ok");
+                return;
+            }
+
+            Result<IEnumerable<Employee>?> result;
+
+            try
+            {
+                result = _selectedSearchTypes switch
+                {
+                    SearchTypes.Apellido => await _employeeService.GetBySurname(searchText),
+                    SearchTypes.Oficio => await _employeeService.GetByCraft(searchText),
+                    SearchTypes.Fecha_Alt => await _employeeService.GetByRegistrationDate(searchText),
+                    SearchTypes.Salario => await FetchByNumericValue(searchText, isSalary: true),
+                    SearchTypes.Comision => await FetchByNumericValue(searchText, isSalary: false),
+                    _ => Result<IEnumerable<Employee>?>.Failure(new Exception("Tipo no soportado"))
+                };
+
+                HandleSearchResult(result, searchText);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "Ok");
+            }
+        }
+
+        /// <summary>
+        /// Helper to handle numeric parsing and service calls for Salary and Commission.
+        /// </summary>
+        private async Task<Result<IEnumerable<Employee>?>> FetchByNumericValue(string text, bool isSalary)
+        {
+            if (!float.TryParse(text, out float value) || value <= 0)
+                throw new Exception($"Para buscar por {(isSalary ? "salario" : "comisión")} debes introducir un número positivo.");
+            
+            return isSalary
+                ? await _employeeService.GetBySalary(value)
+                : await _employeeService.GetByCommission(value);
+        }
+
+        /// <summary>
+        /// Updates the CollectionView or shows an alert based on the Result.
+        /// </summary>
+        private async void HandleSearchResult(Result<IEnumerable<Employee>?> result, string searchedValue)
+        {
+            if (result.IsSuccess && result.Data != null && result.Data.Any()) EmployeesCollection.ItemsSource = result.Data;
+            else
+            {
+                EmployeesCollection.ItemsSource = null; // Clear list if no results
+                await DisplayAlert("Sin datos", $"No se han encontrado empleados para: {searchedValue}", "Ok");
+            }
         }
 
         /// <summary>
@@ -180,9 +249,9 @@ namespace ModoConectado.ViewController
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnSurnameTapped(object? sender, TappedEventArgs e)
+        private void OnSurnameChanged(object? sender, SelectionChangedEventArgs e)
         {
-            _selectedEmployee = e.Parameter as Employee;
+            _selectedEmployee = (Employee)e.CurrentSelection.FirstOrDefault()!;
             if (_selectedEmployee != null)
             {
                 EtSurname.Text = _selectedEmployee.Surname;
@@ -193,26 +262,28 @@ namespace ModoConectado.ViewController
             }
         }
 
+
         /// <summary>
         /// When a Department is clicked, load the employees from that department.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void OnDepartmentTapped(object? sender, TappedEventArgs e)
+        private async void OnDepartmentChanged(object? sender, SelectionChangedEventArgs e)
         {
-            var department = e.Parameter as Department;
-            if (department != null)
+            _selectedDepartment = (Department)e.CurrentSelection.FirstOrDefault()!;
+            if (_selectedDepartment != null)
             {
-                _selectedDepartment = department;
-                var result = await _employeeService.GetAllByDepartmentId(department.Id);
+                var result = await _employeeService.GetAllByDepartmentId(_selectedDepartment.Id);
                 EmployeesCollection.ItemsSource = result.IsSuccess
                     ? result.Data
                     : new List<Employee>();
                 if (!result.IsSuccess)
                     await DisplayAlert("Error al cargar los empleados",
-                        $"Ha oucurrido un error al cargar los empleados del departamento {department.Name}", "Ok");
+                        $"Ha oucurrido un error al cargar los empleados del departamento {_selectedDepartment.Name}", "Ok");
             }
         }
+
+        //AUXILIARY METHODS
 
         /// <summary>
         /// Create a new Employee from the Entry fields.
@@ -223,8 +294,8 @@ namespace ModoConectado.ViewController
         {
             Surname = EtSurname.Text,
             Craft = EtCraft.Text,
-            Salary = GetFloatValueFromEntry(EtSalary),
-            Commission = GetFloatValueFromEntry(EtCommission),
+            Salary = GetFloatValueFromEntry(EtSalary) ?? 0f,
+            Commission = GetFloatValueFromEntry(EtCommission) ?? 0f,
             RegistrationDate = DpRegistrationDate.Date.ToString(Employee.DATE_FORMAT),
             IdDepartment = _selectedDepartment?.Id ?? null
         };
@@ -242,7 +313,7 @@ namespace ModoConectado.ViewController
             bool salaryIsNegative = GetFloatValueFromEntry(EtSalary) < 1f;
             if(salaryIsNegative) DisplayAlert("Salario Incorrecto", "El salario no puede ser negativo, nulo o un texto.", "Ok");
             bool commissionIsNegative = GetFloatValueFromEntry(EtCommission) < 1f;
-            if (commissionIsNegative) DisplayAlert("Comision Incorrecta", "La comisiona no puede ser negativa, nulo o un texto.", "Ok");
+            if (commissionIsNegative) DisplayAlert("Comisión Incorrecta", "La comisiona no puede ser negativa, nulo o un texto.", "Ok");
             bool dateIsFuture = DpRegistrationDate.Date > DateTime.Now;
             if(dateIsFuture) DisplayAlert("Fecha Incorrecta", "La fecha no puede ser futura.", "Ok");
             return !surnameIsEmpty && !craftIsEmpty && !salaryIsNegative && !commissionIsNegative && !dateIsFuture;
@@ -265,10 +336,10 @@ namespace ModoConectado.ViewController
         /// </summary>
         /// <param name="entry">Entry to parse value to float</param>
         /// <returns>Float value</returns>
-        private float GetFloatValueFromEntry(Entry entry)
+        private float? GetFloatValueFromEntry(Entry entry)
         {
-            float.TryParse(entry.Text, out float value);
-            return value;
+            bool isNumeric = float.TryParse(entry.Text, out float value);
+            return isNumeric ? value : null;
         }
     }
 }

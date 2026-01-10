@@ -75,6 +75,121 @@ namespace ModoConectado.Service
         }
 
         /// <summary>
+        /// Get from the repository the employees searched by his surname.
+        /// </summary>
+        /// <param name="surname">float commission</param>
+        /// <returns>Task with Result with the searched Employees if Success when all goes great or Failure without the Employees if something went wrong</returns>
+        public Task<Result<IEnumerable<Employee>?>> GetBySurname(string surname)
+        {
+            return Task.Run(() =>
+            {
+                Result<IEnumerable<Employee>?> result;
+                try
+                {
+                    result = _repository.GetBySurname(surname).Result;
+                }
+                catch (Exception ex)
+                {
+                    result = Result<IEnumerable<Employee>?>.Failure(ex);
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
+        /// Get from the repository the employees searched by his craft.
+        /// </summary>
+        /// <param name="craft">float commission</param>
+        /// <returns>Task with Result with the searched Employees if Success when all goes great or Failure without the Employees if something went wrong</returns>
+        public Task<Result<IEnumerable<Employee>?>> GetByCraft(string craft)
+        {
+            return Task.Run(() =>
+            {
+                Result<IEnumerable<Employee>?> result;
+                try
+                {
+                    result = _repository.GetByCraft(craft).Result;
+                }
+                catch (Exception ex)
+                {
+                    result = Result<IEnumerable<Employee>?>.Failure(ex);
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
+        /// Get from the repository the employees searched by his salary.
+        /// </summary>
+        /// <param name="salary">float commission</param>
+        /// <returns>Task with Result with the searched Employees if Success when all goes great or Failure without the Employees if something went wrong</returns>
+        public Task<Result<IEnumerable<Employee>?>> GetBySalary(float salary)
+        {
+            return Task.Run(() =>
+            {
+                Result<IEnumerable<Employee>?> result;
+                try
+                {
+                    result = _repository.GetBySalary(salary).Result;
+                }
+                catch (Exception ex)
+                {
+                    result = Result<IEnumerable<Employee>?>.Failure(ex);
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
+        /// Get from the repository the employees searched by his commission.
+        /// </summary>
+        /// <param name="commission">float commission</param>
+        /// <returns>Task with Result with the searched Employees if Success when all goes great or Failure without the Employees if something went wrong</returns>
+        public Task<Result<IEnumerable<Employee>?>> GetByCommission(float commission)
+        {
+            return Task.Run(() =>
+            {
+                Result<IEnumerable<Employee>?> result;
+                try
+                {
+                    result = _repository.GetByCommission(commission).Result;
+                }
+                catch (Exception ex)
+                {
+                    result = Result<IEnumerable<Employee>?>.Failure(ex);
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
+        /// Get from the repository the employees searched by his registration date.
+        /// </summary>
+        /// <param name="date">string with the date</param>
+        /// <returns>Task with Result with the searched Employees if Success when all goes great or Failure without the Employees if something went wrong</returns>
+        public Task<Result<IEnumerable<Employee>?>> GetByRegistrationDate(string date)
+        {
+            return Task.Run(() =>
+            {
+                Result<IEnumerable<Employee>?> result;
+                try
+                {
+                    result = _repository.GetByRegistrationDate(date).Result;
+                }
+                catch (Exception ex)
+                {
+                    result = Result<IEnumerable<Employee>?>.Failure(ex);
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
         /// Search and return the employee from the repository by his ID
         /// </summary>
         /// <param name="id">int id of the searched Employee</param>

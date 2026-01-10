@@ -20,7 +20,7 @@
                         <Label Grid.Column="1" Text="Localización" FontAttributes="Bold" TextColor="Red" TextDecorations="Underline"/>
                     </Grid>
                     <ScrollView>
-                        <CollectionView x:Name="DepartmentsCollection" >
+                        <CollectionView x:Name="DepartmentsCollection" SelectionMode="Single" SelectionChanged="OnDepartmentChanged">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid ColumnDefinitions="200,200" Padding="5">
@@ -37,11 +37,6 @@
                                                     </VisualStateGroup>
                                                 </VisualStateGroupList>
                                             </VisualStateManager.VisualStateGroups>
-                                            <Label.GestureRecognizers>
-                                                <TapGestureRecognizer 
-                                                    Tapped="OnDepartmentTapped" 
-                                                    CommandParameter="{Binding .}" />
-                                            </Label.GestureRecognizers>
                                         </Label>
 
                                         <Label Grid.Column="1" Text="{Binding Localization}" />
@@ -68,18 +63,11 @@
                 </Grid>
 
                 <ScrollView>
-                    <CollectionView x:Name="EmployeesCollection" >
+                    <CollectionView x:Name="EmployeesCollection" SelectionMode="Single" SelectionChanged="OnSurnameChanged">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Grid ColumnDefinitions="*,*,*,*,*" Padding="5">
-                                    <Label Grid.Column="0" Text="{Binding Surname}" TextColor="Blue">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer 
-                                                Tapped="OnSurnameTapped" 
-                                                CommandParameter="{Binding .}" />
-                                        </Label.GestureRecognizers>
-                                    </Label>
-
+                                    <Label Grid.Column="0" Text="{Binding Surname}" TextColor="Blue"/>
                                     <Label Grid.Column="1" Text="{Binding Craft}" />
                                     <Label Grid.Column="2" Text="{Binding Salary, StringFormat='{0:F2}'}" />
                                     <Label Grid.Column="3" Text="{Binding Commission, StringFormat='{0:F2}'}" />
@@ -158,122 +146,31 @@
                     VerticalTextAlignment="Center"
                     Padding="20"/>
 
+                <!-- Search Options -->
                 <VerticalStackLayout
                     Padding="20">
-                    <!-- Search by Surname -->
-                    <Label 
-                        x:Name="SearchSurnameLabel"
-                        Text="Apellido">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroupList>
-                                <VisualStateGroup Name="CommonStates">
-                                    <VisualState Name="Normal" />
-                                    <VisualState Name="PointerOver">
-                                        <VisualState.Setters>
-                                            <Setter Property="Opacity" Value="0.6" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateGroupList>
-                        </VisualStateManager.VisualStateGroups>
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                Tapped="OnLabelSearchTapped" 
-                                CommandParameter="SN" />
-                        </Label.GestureRecognizers>
-                    </Label>
-
-                    <!-- Search by Craft -->
-                    <Label 
-                        x:Name="SearchCraftLabel"
-                        Text="Oficio">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroupList>
-                                <VisualStateGroup Name="CommonStates">
-                                    <VisualState Name="Normal" />
-                                    <VisualState Name="PointerOver">
-                                        <VisualState.Setters>
-                                            <Setter Property="Opacity" Value="0.6" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateGroupList>
-                        </VisualStateManager.VisualStateGroups>
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                Tapped="OnLabelSearchTapped" 
-                                CommandParameter="CR" />
-                        </Label.GestureRecognizers>
-                    </Label>
-
-                    <!-- Search by Salary -->
-                    <Label
-                        x:Name="SearchSalaryLable"
-                        Text="Salario">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroupList>
-                                <VisualStateGroup Name="CommonStates">
-                                    <VisualState Name="Normal" />
-                                    <VisualState Name="PointerOver">
-                                        <VisualState.Setters>
-                                            <Setter Property="Opacity" Value="0.6" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateGroupList>
-                        </VisualStateManager.VisualStateGroups>
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                Tapped="OnLabelSearchTapped" 
-                                CommandParameter="SY" />
-                        </Label.GestureRecognizers>
-                    </Label>
-
-                    <!-- Search by Commission -->
-                    <Label
-                        x:Name="SearchComisionLable"
-                        Text="Comisión">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroupList>
-                                <VisualStateGroup Name="CommonStates">
-                                    <VisualState Name="Normal" />
-                                    <VisualState Name="PointerOver">
-                                        <VisualState.Setters>
-                                            <Setter Property="Opacity" Value="0.6" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateGroupList>
-                        </VisualStateManager.VisualStateGroups>
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                Tapped="OnLabelSearchTapped" 
-                                CommandParameter="CM" />
-                        </Label.GestureRecognizers>
-                    </Label>
-
-                    <!-- Search by Registration Date -->
-                    <Label
-                        x:Name="SearchDateLable"
-                        Text="Fecha Alta">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroupList>
-                                <VisualStateGroup Name="CommonStates">
-                                    <VisualState Name="Normal" />
-                                    <VisualState Name="PointerOver">
-                                        <VisualState.Setters>
-                                            <Setter Property="Opacity" Value="0.6" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateGroupList>
-                        </VisualStateManager.VisualStateGroups>
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                Tapped="OnLabelSearchTapped" 
-                                CommandParameter="RD" />
-                        </Label.GestureRecognizers>
-                    </Label>
+                    <CollectionView x:Name="SearchCollection" SelectionMode="Single" SelectionChanged="OnSearchTypeChanged">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Label
+                                    Text="{Binding .}"
+                                    TextColor="AliceBlue">
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroupList>
+                                            <VisualStateGroup Name="CommonStates">
+                                                <VisualState Name="Normal" />
+                                                <VisualState Name="PointerOver">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="Opacity" Value="0.6" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateGroupList>
+                                    </VisualStateManager.VisualStateGroups>
+                                </Label>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </VerticalStackLayout>
 
                 <!-- Search Tab -->

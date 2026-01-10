@@ -147,6 +147,266 @@ namespace ModoConectado.Repository
         }
 
         /// <summary>
+        /// Get from the repository the employees searched by his surname. It searched if it contains the searched word
+        /// </summary>
+        /// <param name="surname">float commission</param>
+        /// <returns>Task with Result with the searched Employees if Success when all goes great or Failure without the Employees if something went wrong</returns>
+        public Task<Result<IEnumerable<Employee>?>> GetBySurname(string surname)
+        {
+            return Task.Run(() =>
+            {
+                Result<IEnumerable<Employee>?> result;
+                try
+                {
+                    IList<Employee>? employees = new List<Employee>();
+                    using (var connection = SqliteDbConnectionService.GetConnection())
+                    {
+                        connection.Open();
+                        var command = connection.CreateCommand();
+                        command.CommandText = """
+                                              SELECT id_emp, apellido, oficio, salario, comision, fecha_alt, id_departamento
+                                              FROM Empleado
+                                              WHERE apellido LIKE @surname COLLATE NOCASE;
+                                              """;
+                        command.Parameters.AddWithValue("@surname", $"%{surname}%");
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                employees.Add(new Employee
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Surname = reader.GetString(1),
+                                    Craft = reader.GetString(2),
+                                    Salary = reader.GetFloat(3),
+                                    Commission = reader.GetFloat(4),
+                                    RegistrationDate = reader.GetString(5),
+                                    IdDepartment = reader.GetInt32(6)
+                                });
+                            }
+                        }
+                    }
+
+                    result = Result<IEnumerable<Employee>?>.Success(employees);
+                }
+                catch (Exception ex)
+                {
+                    result = Result<IEnumerable<Employee>?>.Failure(ex);
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
+        /// Get from the repository the employees searched by his craft. It searched if it contains the searched word
+        /// </summary>
+        /// <param name="craft">float commission</param>
+        /// <returns>Task with Result with the searched Employees if Success when all goes great or Failure without the Employees if something went wrong</returns>
+        public Task<Result<IEnumerable<Employee>?>> GetByCraft(string craft)
+        {
+            return Task.Run(() =>
+            {
+                Result<IEnumerable<Employee>?> result;
+                try
+                {
+                    IList<Employee>? employees = new List<Employee>();
+                    using (var connection = SqliteDbConnectionService.GetConnection())
+                    {
+                        connection.Open();
+                        var command = connection.CreateCommand();
+                        command.CommandText = """
+                                              SELECT id_emp, apellido, oficio, salario, comision, fecha_alt, id_departamento
+                                              FROM Empleado
+                                              WHERE oficio LIKE @craft COLLATE NOCASE;
+                                              """;
+                        command.Parameters.AddWithValue("@craft", $"%{craft}%");
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                employees.Add(new Employee
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Surname = reader.GetString(1),
+                                    Craft = reader.GetString(2),
+                                    Salary = reader.GetFloat(3),
+                                    Commission = reader.GetFloat(4),
+                                    RegistrationDate = reader.GetString(5),
+                                    IdDepartment = reader.GetInt32(6)
+                                });
+                            }
+                        }
+                    }
+
+                    result = Result<IEnumerable<Employee>?>.Success(employees);
+                }
+                catch (Exception ex)
+                {
+                    result = Result<IEnumerable<Employee>?>.Failure(ex);
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
+        /// Get from the repository the employees searched by his salary.
+        /// </summary>
+        /// <param name="salary">float commission</param>
+        /// <returns>Task with Result with the searched Employees if Success when all goes great or Failure without the Employees if something went wrong</returns>
+        public Task<Result<IEnumerable<Employee>?>> GetBySalary(float salary)
+        {
+            return Task.Run(() =>
+            {
+                Result<IEnumerable<Employee>?> result;
+                try
+                {
+                    IList<Employee>? employees = new List<Employee>();
+                    using (var connection = SqliteDbConnectionService.GetConnection())
+                    {
+                        connection.Open();
+                        var command = connection.CreateCommand();
+                        command.CommandText = """
+                                              SELECT id_emp, apellido, oficio, salario, comision, fecha_alt, id_departamento
+                                              FROM Empleado
+                                              WHERE salario = @salary;
+                                              """;
+                        command.Parameters.AddWithValue("@salary", salary);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                employees.Add(new Employee
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Surname = reader.GetString(1),
+                                    Craft = reader.GetString(2),
+                                    Salary = reader.GetFloat(3),
+                                    Commission = reader.GetFloat(4),
+                                    RegistrationDate = reader.GetString(5),
+                                    IdDepartment = reader.GetInt32(6)
+                                });
+                            }
+                        }
+                    }
+
+                    result = Result<IEnumerable<Employee>?>.Success(employees);
+                }
+                catch (Exception ex)
+                {
+                    result = Result<IEnumerable<Employee>?>.Failure(ex);
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
+        /// Get from the repository the employees searched by his commission.
+        /// </summary>
+        /// <param name="commission">float commission</param>
+        /// <returns>Task with Result with the searched Employees if Success when all goes great or Failure without the Employees if something went wrong</returns>
+        public Task<Result<IEnumerable<Employee>?>> GetByCommission(float commission)
+        {
+            return Task.Run(() =>
+            {
+                Result<IEnumerable<Employee>?> result;
+                try
+                {
+                    IList<Employee>? employees = new List<Employee>();
+                    using (var connection = SqliteDbConnectionService.GetConnection())
+                    {
+                        connection.Open();
+                        var command = connection.CreateCommand();
+                        command.CommandText = """
+                                              SELECT id_emp, apellido, oficio, salario, comision, fecha_alt, id_departamento
+                                              FROM Empleado
+                                              WHERE comision = @commission;
+                                              """;
+                        command.Parameters.AddWithValue("@commission", commission);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                employees.Add(new Employee
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Surname = reader.GetString(1),
+                                    Craft = reader.GetString(2),
+                                    Salary = reader.GetFloat(3),
+                                    Commission = reader.GetFloat(4),
+                                    RegistrationDate = reader.GetString(5),
+                                    IdDepartment = reader.GetInt32(6)
+                                });
+                            }
+                        }
+                    }
+
+                    result = Result<IEnumerable<Employee>?>.Success(employees);
+                }
+                catch (Exception ex)
+                {
+                    result = Result<IEnumerable<Employee>?>.Failure(ex);
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
+        /// Get from the repository the employees searched by his registration date. It searched if it contains the searched date
+        /// </summary>
+        /// <param name="date">float commission</param>
+        /// <returns>Task with Result with the searched Employees if Success when all goes great or Failure without the Employees if something went wrong</returns>
+        public Task<Result<IEnumerable<Employee>?>> GetByRegistrationDate(string date)
+        {
+            return Task.Run(() =>
+            {
+                Result<IEnumerable<Employee>?> result;
+                try
+                {
+                    IList<Employee>? employees = new List<Employee>();
+                    using (var connection = SqliteDbConnectionService.GetConnection())
+                    {
+                        connection.Open();
+                        var command = connection.CreateCommand();
+                        command.CommandText = """
+                                              SELECT id_emp, apellido, oficio, salario, comision, fecha_alt, id_departamento
+                                              FROM Empleado
+                                              WHERE fecha_alt LIKE @date COLLATE NOCASE;
+                                              """;
+                        command.Parameters.AddWithValue("@date", $"%{date}%");
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                employees.Add(new Employee
+                                {
+                                    Id = reader.GetInt32(0),
+                                    Surname = reader.GetString(1),
+                                    Craft = reader.GetString(2),
+                                    Salary = reader.GetFloat(3),
+                                    Commission = reader.GetFloat(4),
+                                    RegistrationDate = reader.GetString(5),
+                                    IdDepartment = reader.GetInt32(6)
+                                });
+                            }
+                        }
+                    }
+
+                    result = Result<IEnumerable<Employee>?>.Success(employees);
+                }
+                catch (Exception ex)
+                {
+                    result = Result<IEnumerable<Employee>?>.Failure(ex);
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
         /// Search and return the employee from the DB by his ID
         /// </summary>
         /// <param name="id">int id of the searched Employee</param>
