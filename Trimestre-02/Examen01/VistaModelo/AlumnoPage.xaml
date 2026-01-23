@@ -3,40 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Examen01.VistaModelo.AlumnoPage"
              Title="Administración de Alumnos">
-    <VerticalStackLayout>
-        <ScrollView>
+    <ScrollView>
+        <VerticalStackLayout>
             <!-- Alumnos -->
-            <VerticalStackLayout
-                Padding="20"
-                Spacing="40">
-                <Grid ColumnDefinitions="50 ,*, 200, *"
-                      Padding="10"
-                      Margin="10">
+            <VerticalStackLayout Padding="20" Spacing="10">
+
+                <Grid ColumnDefinitions="50 ,*, 200, *" Padding="10" Margin="10,0">
                     <Label Grid.Column="0" Text="ID" FontAttributes="Bold" TextDecorations="Underline"/>
                     <Label Grid.Column="1" Text="Nombre" FontAttributes="Bold" TextDecorations="Underline"/>
                     <Label Grid.Column="2" Text="Nota Media" FontAttributes="Bold" TextDecorations="Underline"/>
                     <Label Grid.Column="3" Text="Fecha de nacimiento" FontAttributes="Bold" TextDecorations="Underline"/>
                 </Grid>
-                <ScrollView>
-                    <CollectionView x:Name="AlumnosColeccion" SelectionMode="Single" SelectionChanged="OnAlumnoChanged">
+
+                <Border Stroke="Gray" StrokeThickness="1" HeightRequest="300">
+                    <CollectionView x:Name="AlumnosColeccion" 
+                                    SelectionMode="Single" 
+                                    SelectionChanged="OnAlumnoChanged">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Grid ColumnDefinitions="50, *, 200, *" Padding="10" Margin="10">
-                                    <Label Grid.Column="0" Text="{Binding ID}">
-                                        <VisualStateManager.VisualStateGroups>
-                                            <VisualStateGroupList>
-                                                <VisualStateGroup Name="CommonStates">
-                                                    <VisualState Name="Normal" />
-                                                    <VisualState Name="PointerOver">
-                                                        <VisualState.Setters>
-                                                            <Setter Property="BackgroundColor" Value="#335BA3FC" />
-                                                        </VisualState.Setters>
-                                                    </VisualState>
-                                                </VisualStateGroup>
-                                            </VisualStateGroupList>
-                                        </VisualStateManager.VisualStateGroups>
-                                    </Label>
-
+                                <Grid ColumnDefinitions="50, *, 200, *" Padding="10">
+                                    <Label Grid.Column="0" Text="{Binding Id}" />
                                     <Label Grid.Column="1" Text="{Binding Nombre}" />
                                     <Label Grid.Column="2" Text="{Binding NotaMedia}" />
                                     <Label Grid.Column="3" Text="{Binding FechaNacimiento}"/>
@@ -44,179 +30,179 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                </ScrollView>
+                </Border>
             </VerticalStackLayout>
-        </ScrollView>
 
-        <!-- Campos de Rellenado de Datos -->
-        <HorizontalStackLayout
-            Spacing="40"
-            Padding="20">
-
-            <Entry
-                x:Name="EtNombre"
-                BackgroundColor="{AppThemeBinding Default=#FF000, Dark=#FFF0F8FF}"
-                TextColor="Black"
-                Placeholder="Nombre"
-                Width="250"
-                WidthRequest="250"
-                MinimumWidthRequest="250"/>
-
-            <Entry
-                x:Name="EtNotaMedia"
-                Keyboard="Numeric"
-                BackgroundColor="{AppThemeBinding Default=#FF000, Dark=#FFF0F8FF}"
-                TextColor="Black"
-                Placeholder="Nota Media"
-                Width="150"
-                WidthRequest="150"
-                MinimumWidthRequest="150"/>
-
-            <DatePicker
-                x:Name="DpFechaNacimiento"
-                BackgroundColor="{AppThemeBinding Default=#FF000, Dark=#FFF0F8FF}"
-                TextColor="Black"/>
-        </HorizontalStackLayout>
-
-        <!-- Busqueda -->
-        <HorizontalStackLayout
+                <!-- Campos de Rellenado de Datos -->
+            <HorizontalStackLayout
                 Spacing="40"
                 Padding="20">
 
-            <Label
-                    Text="Buscar por:"
-                    FontAttributes="Bold"
-                    TextDecorations="Underline"
-                    VerticalOptions="Center"
-                    VerticalTextAlignment="Center"
-                    Padding="20"/>
-
-            <!-- Search Options -->
-            <Picker
-                x:Name="pkBusqueda"
-                Title="Seleccionar filtro..." 
-                TitleColor="{AppThemeBinding Default=Gray, Dark=Silver}"
-                BackgroundColor="{AppThemeBinding Default=#FF000, Dark=#FFF0F8FF}"
-                TextColor="{AppThemeBinding Default=#FFF0F8FF, Dark=#FF000}"
-                WidthRequest="200"/>
-
-            <Entry
-                    x:Name="EtSearch"
-                    Placeholder="Buscar"
+                <Entry
+                    x:Name="EtNombre"
                     BackgroundColor="{AppThemeBinding Default=#FF000, Dark=#FFF0F8FF}"
                     TextColor="Black"
-                    Width="400"
-                    WidthRequest="400"
-                    MinimumWidthRequest="400"
-                    ClearButtonVisibility="WhileEditing"
-                    VerticalOptions="Center"/>
+                    Placeholder="Nombre"
+                    Width="250"
+                    WidthRequest="250"
+                    MinimumWidthRequest="250"/>
 
-            <!-- Search -->
-            <Button
-                    Text="Buscar"
-                    Clicked="OnBuscarClicked"
+                <Entry
+                    x:Name="EtNotaMedia"
+                    Keyboard="Numeric"
+                    BackgroundColor="{AppThemeBinding Default=#FF000, Dark=#FFF0F8FF}"
+                    TextColor="Black"
+                    Placeholder="Nota Media"
+                    Width="150"
+                    WidthRequest="150"
+                    MinimumWidthRequest="150"/>
+
+                <DatePicker
+                    x:Name="DpFechaNacimiento"
+                    BackgroundColor="{AppThemeBinding Default=#FF000, Dark=#FFF0F8FF}"
+                    TextColor="Black"/>
+            </HorizontalStackLayout>
+
+            <!-- Busqueda -->
+            <HorizontalStackLayout
+                    Spacing="40"
+                    Padding="20">
+
+                <Label
+                        Text="Buscar por:"
+                        FontAttributes="Bold"
+                        TextDecorations="Underline"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Center"
+                        Padding="20"/>
+
+                <!-- Search Options -->
+                <Picker
+                    x:Name="pkBusqueda"
+                    Title="Seleccionar filtro..." 
+                    TitleColor="{AppThemeBinding Default=Gray, Dark=Silver}"
+                    BackgroundColor="{AppThemeBinding Default=#FF000, Dark=#FFF0F8FF}"
+                    TextColor="{AppThemeBinding Default=#FFF0F8FF, Dark=#FF000}"
+                    WidthRequest="200"/>
+
+                <Entry
+                        x:Name="EtSearch"
+                        Placeholder="Buscar"
+                        BackgroundColor="{AppThemeBinding Default=#FF000, Dark=#FFF0F8FF}"
+                        TextColor="Black"
+                        Width="400"
+                        WidthRequest="400"
+                        MinimumWidthRequest="400"
+                        ClearButtonVisibility="WhileEditing"
+                        VerticalOptions="Center"/>
+
+                <!-- Search -->
+                <Button
+                        Text="Buscar"
+                        Clicked="OnBuscarClicked"
+                        Height="50"
+                        HeightRequest="50"
+                        MaximumHeightRequest="50">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="Opacity" Value="0.6" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Button>
+            </HorizontalStackLayout>
+
+            <!-- Botones de Acciones -->
+                <HorizontalStackLayout
+                    Spacing="40"
+                    Padding="20"
+                    HorizontalOptions="End"
+                    VerticalOptions="End">
+
+                    <Button
+                    Text="Limpiar"
+                    Clicked="OnLimpiarClicked"
+                    BackgroundColor="{AppThemeBinding Default=#E6E6E6, Dark=#F8F8F8}"
                     Height="50"
                     HeightRequest="50"
                     MaximumHeightRequest="50">
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroupList>
-                        <VisualStateGroup Name="CommonStates">
-                            <VisualState Name="Normal" />
-                            <VisualState Name="PointerOver">
-                                <VisualState.Setters>
-                                    <Setter Property="Opacity" Value="0.6" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </VisualStateManager.VisualStateGroups>
-            </Button>
-        </HorizontalStackLayout>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value="0.6" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                    </Button>
 
-        <!-- Botones de Acciones -->
-        <HorizontalStackLayout
-                Spacing="40"
-                Padding="20"
-                HorizontalOptions="End"
-                VerticalOptions="End">
-
-            <Button
-                Text="Limpiar"
-                Clicked="OnLimpiarClicked"
-                BackgroundColor="{AppThemeBinding Default=#E6E6E6, Dark=#F8F8F8}"
-                Height="50"
-                HeightRequest="50"
-                MaximumHeightRequest="50">
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroupList>
-                        <VisualStateGroup Name="CommonStates">
-                            <VisualState Name="Normal" />
-                            <VisualState Name="PointerOver">
-                                <VisualState.Setters>
-                                    <Setter Property="Opacity" Value="0.6" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </VisualStateManager.VisualStateGroups>
-            </Button>
-
-            <Button
-                Text="Guardar"
-                FontAttributes="Bold"
-                Clicked="OnGuardarClicked"
-                BackgroundColor="#53D769">
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroupList>
-                        <VisualStateGroup Name="CommonStates">
-                            <VisualState Name="Normal" />
-                            <VisualState Name="PointerOver">
-                                <VisualState.Setters>
-                                    <Setter Property="Opacity" Value="0.6" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </VisualStateManager.VisualStateGroups>
-            </Button>
-
-            <Button
-                    Text="Actualizar"
+                    <Button
+                    Text="Guardar"
                     FontAttributes="Bold"
-                    Clicked="OnActualizarClicked"
-                    BackgroundColor="#5BA3FC">
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroupList>
-                        <VisualStateGroup Name="CommonStates">
-                            <VisualState Name="Normal" />
-                            <VisualState Name="PointerOver">
-                                <VisualState.Setters>
-                                    <Setter Property="Opacity" Value="0.6" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </VisualStateManager.VisualStateGroups>
-            </Button>
+                    Clicked="OnGuardarClicked"
+                    BackgroundColor="#53D769">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value="0.6" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                    </Button>
 
-            <Button
-                    Text="Borrar"
-                    FontAttributes="Bold"
-                    Clicked="OnEliminarClicked"
-                    BackgroundColor="#FC3D39">
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroupList>
-                        <VisualStateGroup Name="CommonStates">
-                            <VisualState Name="Normal" />
-                            <VisualState Name="PointerOver">
-                                <VisualState.Setters>
-                                    <Setter Property="Opacity" Value="0.6" />
-                                </VisualState.Setters>
-                            </VisualState>
-                        </VisualStateGroup>
-                    </VisualStateGroupList>
-                </VisualStateManager.VisualStateGroups>
-            </Button>
-        </HorizontalStackLayout>
-    </VerticalStackLayout>
+                    <Button
+                        Text="Actualizar"
+                        FontAttributes="Bold"
+                        Clicked="OnActualizarClicked"
+                        BackgroundColor="#5BA3FC">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value="0.6" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                    </Button>
+
+                    <Button
+                        Text="Borrar"
+                        FontAttributes="Bold"
+                        Clicked="OnEliminarClicked"
+                        BackgroundColor="#FC3D39">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Property="Opacity" Value="0.6" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                    </Button>
+                </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

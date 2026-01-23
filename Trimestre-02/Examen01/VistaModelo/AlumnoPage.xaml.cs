@@ -21,7 +21,7 @@ public partial class AlumnoPage : ContentPage
 
     private void OnAlumnoChanged(object? sender, SelectionChangedEventArgs e)
     {
-        throw new NotImplementedException();
+        
     }
 
     private void OnBuscarClicked(object? sender, EventArgs e)
@@ -61,6 +61,10 @@ public partial class AlumnoPage : ContentPage
         try
         {
             await AlumnoRepository.IniciarBaseDatos();
+            foreach (var alumno in await AlumnoRepository.GetAll())
+            {
+                Alumnos.Add(alumno);
+            }
         }
         catch (Exception e)
         {
