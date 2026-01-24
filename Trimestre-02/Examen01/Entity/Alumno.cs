@@ -6,16 +6,16 @@
         public int Id { get; set; }
         public string Nombre { get; set; }
         public float NotaMedia { get; set; }
-        public DateOnly FechaNacimiento { get; set; }
+        public string FechaNacimiento { get; set; }
 
-        public Alumno(string nombre, float notaMedia, DateOnly fechaNacimiento)
+        public Alumno(string nombre, float notaMedia, string fechaNacimiento)
         {
             Nombre = nombre;
             NotaMedia = notaMedia;
             FechaNacimiento = fechaNacimiento;
         }
 
-        public Alumno(int id, string nombre, float notaMedia, DateOnly fechaNacimiento)
+        public Alumno(int id, string nombre, float notaMedia, string fechaNacimiento)
         {
             Id = id;
             Nombre = nombre;

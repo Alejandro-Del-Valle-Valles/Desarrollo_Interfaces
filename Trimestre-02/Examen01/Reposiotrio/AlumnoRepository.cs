@@ -80,7 +80,7 @@ namespace Examen01.Reposiotrio
                     while (await lector.ReadAsync())
                     {
                         alumnos.Add(new(lector.GetInt32(0), lector.GetString(1), lector.GetFloat(2),
-                            DateOnly.Parse(lector.GetString(3))));
+                            lector.GetString(3)));
                     }
                 }
             }
@@ -105,7 +105,7 @@ namespace Examen01.Reposiotrio
                     while (await lector.ReadAsync())
                     {
                         alumno = new(lector.GetInt32(0), lector.GetString(1), lector.GetFloat(2),
-                            DateOnly.Parse(lector.GetString(3)));
+                            lector.GetString(3));
                     }
                 }
             }
@@ -126,7 +126,7 @@ namespace Examen01.Reposiotrio
                 comando.Parameters.AddWithValue("@id", alumno.Id);
                 comando.Parameters.AddWithValue("@nombre", alumno.Nombre);
                 comando.Parameters.AddWithValue("@nota", alumno.NotaMedia);
-                comando.Parameters.AddWithValue("@fecha", alumno.FechaNacimiento.ToString("yyyy-MM-dd"));
+                comando.Parameters.AddWithValue("@fecha", alumno.FechaNacimiento);
                 resultado = await comando.ExecuteNonQueryAsync() > 0;
             }
 
@@ -149,7 +149,7 @@ namespace Examen01.Reposiotrio
                 comando.Parameters.AddWithValue("@id", alumno.Id);
                 comando.Parameters.AddWithValue("@nombre", alumno.Nombre);
                 comando.Parameters.AddWithValue("@nota", alumno.NotaMedia);
-                comando.Parameters.AddWithValue("@fecha", alumno.FechaNacimiento.ToString("yyyy-MM-dd"));
+                comando.Parameters.AddWithValue("@fecha", alumno.FechaNacimiento);
                 resultado = await comando.ExecuteNonQueryAsync() > 0;
             }
             return resultado;

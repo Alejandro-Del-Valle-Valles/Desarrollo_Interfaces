@@ -14,9 +14,38 @@ public partial class AlumnoPage : ContentPage
 	public AlumnoPage()
 	{
 		InitializeComponent();
-        pkBusqueda.ItemsSource = Enum.GetValues(typeof(TiposBusqueda));
+        PkBusqueda.ItemsSource = Enum.GetValues(typeof(TiposBusqueda));
         AlumnosColeccion.ItemsSource = Alumnos;
-        InicializarAlumnos();
+        InicializarBD();
+    }
+
+    private async void InicializarBD()
+    {
+        try
+        {
+            await AlumnoRepository.IniciarBaseDatos();
+            InicializarAlumnos();
+        }
+        catch (Exception e)
+        {
+            await DisplayAlert("Error al crear la BBDD", "Ha ocurrido un error al crear la BBDD.", "Aceptar");
+        }
+    }
+
+    private async void InicializarAlumnos()
+    {
+        try
+        {
+            foreach (var alumno in await AlumnoRepository.GetAll())
+            {
+                Alumnos?.Add(alumno);
+            }
+        }
+        catch (Exception e)
+        {
+            await DisplayAlert("Error al inicializar los alumnos", "Ha ocurrido un error al inicializar los alumnos",
+                "Aceptar");
+        }
     }
 
     private void OnAlumnoChanged(object? sender, SelectionChangedEventArgs e)
@@ -26,32 +55,76 @@ public partial class AlumnoPage : ContentPage
         {
             EtNombre.Text = alumnoSeleccionado.Nombre;
             EtNotaMedia.Text = alumnoSeleccionado.NotaMedia.ToString();
-            DpFechaNacimiento.Date = alumnoSeleccionado.FechaNacimiento.ToDateTime(TimeOnly.MinValue);
+            DpFechaNacimiento.Date = DateTime.Parse(alumnoSeleccionado.FechaNacimiento);
         }
     }
 
-    //TODO: Añadir las opciones de búsqueda
-    private void OnBuscarClicked(object? sender, EventArgs e)
+    private async void OnBuscarClicked(object? sender, EventArgs e)
     {
-        if (sender != null)
+        try
         {
-            var picker = (Picker)sender;
-            if (picker.SelectedIndex != -1)
+            if (sender != null && !string.IsNullOrWhiteSpace(EtSearch.Text))
             {
-                switch ((TiposBusqueda)picker.SelectedItem)
+                int indice = PkBusqueda.SelectedIndex;
+                if (indice != -1)
                 {
-                    case TiposBusqueda.Id:
-                        //TODO: Solo numeros enteros
-                        break;
-                    case TiposBusqueda.Nombre:
-                        break;
-                    case TiposBusqueda.Nota_Media:
-                        //TODO: Solo permitir numeros decimales
-                        break;
-                    case TiposBusqueda.Fecha_Nacimiento:
-                        break;
+                    InicializarAlumnos();
+                    switch ((TiposBusqueda)PkBusqueda.SelectedItem)
+                    {
+                        case TiposBusqueda.Id:
+                            int id = int.Parse(EtSearch.Text);
+                            Alumno? alumnoFiltrado = Alumnos?.FirstOrDefault(a => a.Id == id);
+                            if (alumnoFiltrado != null)
+                            {
+                                Alumnos?.Clear();
+                                Alumnos?.Add(alumnoFiltrado);
+                            }
+                            else await DisplayAlert("No se han encontrado datos", $"No se ha encontrado ningún alumno con ID {id}", "Aceptar");
+                                break;
+                        case TiposBusqueda.Nombre:
+                            IList<Alumno>? alumnosNombre =
+                                Alumnos?.Where(a => a.Nombre.Contains(EtSearch.Text.Trim())).ToList();
+                            if (alumnosNombre != null)
+                            {
+                                Alumnos?.Clear();
+                                foreach (Alumno alumno in alumnosNombre)
+                                {
+                                    Alumnos?.Add(alumno);
+                                }
+                            }
+                            break;
+                        case TiposBusqueda.Nota_Media:
+                            float nota = float.Parse(EtSearch.Text);
+                            IList<Alumno>? alumnosNota =
+                                Alumnos?.Where(a => a.NotaMedia == nota).ToList();
+                            if (alumnosNota != null)
+                            {
+                                Alumnos?.Clear();
+                                foreach (Alumno alumno in alumnosNota)
+                                {
+                                    Alumnos?.Add(alumno);
+                                }
+                            }
+                            break;
+                        case TiposBusqueda.Fecha_Nacimiento:
+                            IList<Alumno>? alumnosFecha =
+                                Alumnos?.Where(a => a.FechaNacimiento.Contains(EtSearch.Text.Trim())).ToList();
+                            if (alumnosFecha != null)
+                            {
+                                Alumnos?.Clear();
+                                foreach (Alumno alumno in alumnosFecha)
+                                {
+                                    Alumnos?.Add(alumno);
+                                }
+                            }
+                            break;
+                    }
                 }
             }
+        }
+        catch
+        {
+            await DisplayAlert("Error al buscar", "Ha ocurrido un error al tratar de buscar por los datos introducidos", "Aceptar");
         }
     }
 
@@ -62,7 +135,7 @@ public partial class AlumnoPage : ContentPage
             if (ComprobarDatos())
             {
                 Alumno nuevoAlumno = new(Alumnos.LastOrDefault()?.Id + 1 ?? 1, EtNombre.Text.Trim(), 
-                    float.Parse(EtNotaMedia.Text?.Replace('.', ',') ?? "0"), DateOnly.FromDateTime(DpFechaNacimiento.Date));
+                    float.Parse(EtNotaMedia.Text?.Replace('.', ',') ?? "0"), DpFechaNacimiento.Date.ToString("dd-MM-yyyy"));
                 if (await AlumnoRepository.Insert(nuevoAlumno))
                 {
                     Alumnos.Add(nuevoAlumno);
@@ -96,8 +169,8 @@ public partial class AlumnoPage : ContentPage
                         "Aceptar", "Cancelar"))
                 {
                     alumnoSeleccionado.Nombre = EtNombre.Text.Trim();
-                    alumnoSeleccionado.NotaMedia = float.Parse(EtNotaMedia.Text?.Replace('.', ',') ?? "0");
-                    alumnoSeleccionado.FechaNacimiento = DateOnly.FromDateTime(DpFechaNacimiento.Date);
+                    alumnoSeleccionado.NotaMedia = float.Parse(NormalizarNota());
+                    alumnoSeleccionado.FechaNacimiento = DpFechaNacimiento.Date.ToString("dd-MM-yyyy");
                     bool actualizado = await AlumnoRepository.Update(alumnoSeleccionado);
                     if (actualizado)
                     {
@@ -158,11 +231,8 @@ public partial class AlumnoPage : ContentPage
     {
         try
         {
-            Alumnos.Clear();
-            foreach (var alumno in await AlumnoRepository.GetAll())
-            {
-                Alumnos.Add(alumno);
-            }
+            Alumnos?.Clear();
+            InicializarAlumnos();
         }
         catch (Exception ex)
         {
@@ -171,28 +241,12 @@ public partial class AlumnoPage : ContentPage
         }
     }
 
-    private async void InicializarAlumnos()
-    {
-        try
-        {
-            await AlumnoRepository.IniciarBaseDatos();
-            foreach (var alumno in await AlumnoRepository.GetAll())
-            {
-                Alumnos.Add(alumno);
-            }
-        }
-        catch (Exception e)
-        {
-            await DisplayAlert("Error al cargar los datos", e.Message, "Aceptar");
-        }
-    }
-
     private void OnNotaMediaTextChanged(object sender, TextChangedEventArgs e)
     {
         if (string.IsNullOrWhiteSpace(e.NewTextValue))
             return;
 
-        bool isValid = double.TryParse(e.NewTextValue, out _);
+        bool isValid = float.TryParse(e.NewTextValue, out _);
 
         if (!isValid)
         {
@@ -200,9 +254,35 @@ public partial class AlumnoPage : ContentPage
         }
     }
 
+    private void OnBuscarTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        TiposBusqueda filtro = (TiposBusqueda)PkBusqueda.SelectedItem;
+        bool esValido;
+        switch (filtro)
+        {
+            case TiposBusqueda.Id:
+                if (string.IsNullOrWhiteSpace(e.NewTextValue))
+                    return;
+
+                esValido = int.TryParse(e.NewTextValue, out _);
+
+                if (!esValido)
+                    ((Entry)sender).Text = e.OldTextValue;
+                break;
+            case TiposBusqueda.Nota_Media:
+                if (string.IsNullOrWhiteSpace(e.NewTextValue))
+                    return;
+
+                esValido = float.TryParse(e.NewTextValue, out _);
+                if (!esValido) 
+                    ((Entry)sender).Text = e.OldTextValue;
+                break;
+        }
+    }
+
     private bool ComprobarDatos()
     {
-        string notaMedia = EtNotaMedia.Text?.Replace('.', ',') ?? "0";
+        string notaMedia = NormalizarNota();
         bool nombreCorrecto = !String.IsNullOrWhiteSpace(EtNombre.Text);
         bool notaCorrecta = float.TryParse(notaMedia, out float media) && media is >= 0 and <= 10;
         bool fechCorrecta = DpFechaNacimiento.Date < DateTime.Today;
@@ -212,4 +292,6 @@ public partial class AlumnoPage : ContentPage
         if (!fechCorrecta) DisplayAlert("La fecha no es correcta", "La fecha debe ser inferior a hoy", "Aceptar");
         return nombreCorrecto && notaCorrecta && fechCorrecta;
     }
+
+    private string NormalizarNota() => EtNotaMedia.Text?.Replace('.', ',') ?? "0";
 }
