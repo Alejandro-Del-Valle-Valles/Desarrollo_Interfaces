@@ -50,6 +50,7 @@
                 <Entry
                     x:Name="EtNotaMedia"
                     Keyboard="Numeric"
+                    TextChanged="OnNotaMediaTextChanged"
                     BackgroundColor="{AppThemeBinding Default=#FF000, Dark=#FFF0F8FF}"
                     TextColor="Black"
                     Placeholder="Nota Media"

@@ -1,4 +1,4 @@
-﻿namespace Examen01.Entity
+﻿namespace Examen01.entity
 {
     public class Alumno : IEquatable<Alumno>
     {
@@ -7,6 +7,13 @@
         public string Nombre { get; set; }
         public float NotaMedia { get; set; }
         public DateOnly FechaNacimiento { get; set; }
+
+        public Alumno(string nombre, float notaMedia, DateOnly fechaNacimiento)
+        {
+            Nombre = nombre;
+            NotaMedia = notaMedia;
+            FechaNacimiento = fechaNacimiento;
+        }
 
         public Alumno(int id, string nombre, float notaMedia, DateOnly fechaNacimiento)
         {

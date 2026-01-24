@@ -1,4 +1,4 @@
-﻿using Examen01.Entity;
+﻿using Examen01.entity;
 using Microsoft.Data.Sqlite;
 
 namespace Examen01.Reposiotrio
@@ -7,8 +7,8 @@ namespace Examen01.Reposiotrio
     {
         private static readonly string DB_NAME = "Alumnos.db3";
 
-        public static string GetRuta() => Path.Combine(FileSystem.AppDataDirectory, DB_NAME);
-        public static SqliteConnection GetConexion() => new SqliteConnection($"Data Source={GetRuta()}");
+        private static string GetRuta() => Path.Combine(FileSystem.AppDataDirectory, DB_NAME);
+        private static SqliteConnection GetConexion() => new SqliteConnection($"Data Source={GetRuta()}");
 
         public static async Task IniciarBaseDatos()
         {
@@ -120,9 +120,10 @@ namespace Examen01.Reposiotrio
                 await conexion.OpenAsync();
                 var comando = conexion.CreateCommand();
                 comando.CommandText = """
-                                      INSER INTO Alumnos (nombre, nota_media, fecha_nacimiento)
-                                      VALUES(@nombre, @nota, @fecha)
+                                      INSERT INTO Alumnos (id, nombre, nota_media, fecha_nacimiento)
+                                      VALUES(@id, @nombre, @nota, @fecha)
                                       """;
+                comando.Parameters.AddWithValue("@id", alumno.Id);
                 comando.Parameters.AddWithValue("@nombre", alumno.Nombre);
                 comando.Parameters.AddWithValue("@nota", alumno.NotaMedia);
                 comando.Parameters.AddWithValue("@fecha", alumno.FechaNacimiento.ToString("yyyy-MM-dd"));
