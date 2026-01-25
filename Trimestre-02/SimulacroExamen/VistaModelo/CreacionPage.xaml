@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SimulacroExamen.VistaModelo.CreacionPage"
+             Title="Crear Productos">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label Text="Añade Productos"
+                   Style="{StaticResource Headline}"
+                   HorizontalOptions="Center"
+                   Padding="10"
+                   Margin="10"/>
+            <Border Stroke="Gray" 
+                    StrokeThickness="1" 
+                    HeightRequest="400"
+                    WidthRequest="600"
+                    MaximumWidthRequest="600"
+                    HorizontalOptions="Center"
+                    Padding="10"
+                    Margin="10"
+                    Height="400"
+                    MaximumHeightRequest="400">
+                <ScrollView>
+                    <VerticalStackLayout x:Name="VlProductos"/>
+                </ScrollView>
+            </Border>
+
+            <HorizontalStackLayout HorizontalOptions="Center"
+                Padding="10"
+                Margin="10">
+
+                <Button Text="Agregar Producto"
+                        Clicked="OnAgregarClicked"
+                        BackgroundColor="DarkCyan"
+                        Padding="10"
+                        Margin="10"/>
+
+                <Button Text="Eliminar Producto"
+                        Clicked="OnEliminarClicked"
+                        BackgroundColor="Red"
+                        Padding="10"
+                        Margin="10"/>
+            </HorizontalStackLayout>
+
+            <Button Text="Guardar Productos"
+                    Clicked="OnGuardarClicked"
+                    BackgroundColor="DarkSeaGreen"
+                    Padding="5"
+                    Margin="5"
+                    HorizontalOptions="Center"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

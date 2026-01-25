@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PruebasElementosDinamicos.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label Text="Proyecto de prueba de generación de elementos dinámicos"
+                   FontAttributes="Bold"
+                   FontSize="36"
+                   HorizontalOptions="Center"
+                   Padding="20"
+                   Margin="20"/>
+            <ScrollView
+                HorizontalOptions="Center"
+                Padding="20"
+                Margin="20"
+                Height="350"
+                HeightRequest="350"
+                MaximumHeightRequest="250">
+                <VerticalStackLayout x:Name="VlContenedor"/>
+            </ScrollView>
+            <HorizontalStackLayout HorizontalOptions="Center"
+                                   Padding="20"
+                                   Margin="20">
+                <Button x:Name="BtAdd"
+                        Clicked="OnAddClicked"
+                        Text="Añadir Botón"
+                        Padding="20"
+                        Margin="20"/>
+                <Button x:Name="BtDelete"
+                        Clicked="OnDeleteClicked"
+                        Text="Eliminar Último Botón"
+                        Padding="20"
+                        Margin="20"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
