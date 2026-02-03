@@ -1,24 +1,26 @@
-﻿namespace Practica01
+﻿using Practica01.Core.Service;
+
+namespace Practica01
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
 
         public MainPage()
         {
             InitializeComponent();
+            InicializarDatos();
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        private void InicializarDatos()
         {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            
+             VentaService.Insert(new("Enero", 276.5m));
+           VentaService.Insert(new("Febrero", 450.4m));
+           VentaService.Insert(new("Marzo", 340.56m));
+           VentaService.Insert(new("Abril", 300m));
+           VentaService.Insert(new("Mayo", 370.12m));
+           VentaService.Insert(new("Junio", 401.2m));
+            
         }
     }
 }
