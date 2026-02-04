@@ -7,7 +7,7 @@
     Title="Practica01">
 
     <ShellContent
-        Title="Home"
+        Title="Listado de Ventas"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 

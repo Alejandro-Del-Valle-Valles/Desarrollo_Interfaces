@@ -8,6 +8,48 @@
             Padding="30,0"
             Spacing="25">
             
+            <!-- Tabla de Ventas -->
+            <VerticalStackLayout Padding="20" Spacing="10" WidthRequest="500">
+                <Grid ColumnDefinitions="*, *" Padding="10" Margin="10,0">
+                    <Label Grid.Column="0" Text="Mes" FontAttributes="Bold" TextDecorations="Underline"/>
+                    <Label Grid.Column="1" Text="Total" FontAttributes="Bold" TextDecorations="Underline" HorizontalTextAlignment="End"/>
+                </Grid>
+
+                <Border Stroke="Gray" StrokeThickness="1" HeightRequest="300">
+                    <CollectionView x:Name="VentasColeccion">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="*, *" Padding="10">
+                                    <Label Grid.Column="0" Text="{Binding Mes}" />
+                                    <Label Grid.Column="1" Text="{Binding Total, StringFormat='{0:C}'}" HorizontalTextAlignment="End"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Métricas -->
+            <HorizontalStackLayout Padding="20" Spacing="10">
+                <Label Text="Total" FontAttributes="Bold" Padding="5" Margin="5"/>
+                <Label x:Name="LbTotal" Padding="5" Margin="5"/>
+
+                <Label Text="Promedio" FontAttributes="Bold" Padding="5" Margin="5"/>
+                <Label x:Name="LbPromedio" Padding="5" Margin="5"/>
+
+                <Label Text="Máximo" FontAttributes="Bold" Padding="5" Margin="5"/>
+                <Label x:Name="LbMaximo" Padding="5" Margin="5"/>
+            </HorizontalStackLayout>
+
+            <!-- Búsqueda -->
+            <HorizontalStackLayout Padding="20" Spacing="10" WidthRequest="350" HorizontalOptions="Start">
+                <SearchBar x:Name="SbBusqueda"
+                           SearchButtonPressed="OnBuscarClicked"
+                           TextChanged="OnBuscarChanged"
+                           IsTextPredictionEnabled="True"
+                           Placeholder="Escribe mes a buscar..." WidthRequest="300"
+                           HorizontalOptions="Start"/>
+            </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>
 
