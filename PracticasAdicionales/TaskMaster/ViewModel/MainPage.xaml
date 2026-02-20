@@ -21,18 +21,48 @@
                 HorizontalOptions="Center">
                 <VerticalStackLayout Padding="5"
                                      Margin="5">
-                    <Label Text="Iniciar Sesión"
-                           FontSize="20"
-                           FontAttributes="Bold"
-                           Padding="5"
-                           Margin="5"/>
+                    <HorizontalStackLayout>
+                        <Label Text="Iniciar Sesión"
+                               TextColor="Black"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               Padding="5"
+                               Margin="5"/>
+
+                        <!-- Sección de ayuda -->
+                        <Border Stroke="CadetBlue"
+                                StrokeThickness="2"
+                                HeightRequest="40"
+                                WidthRequest="40"
+                                HorizontalOptions="End"
+                                StrokeShape="RoundRectangle 20">
+                            <Border.Shadow>
+                                <Shadow Brush="Black" Offset="2,2" Radius="5" Opacity="0.2" />
+                            </Border.Shadow>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnHelpClicked" />
+                            </Border.GestureRecognizers>
+
+                            <Label Text="?" 
+                                   TextColor="CadetBlue"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center" />
+                        </Border>
+                    </HorizontalStackLayout>
 
                     <!-- Datos de Login -->
-                    <Entry Placeholder="ejemplo@mail.com" Margin="5"/>
-                    <Entry Placeholder="Contraseña..." IsPassword="True" Margin="5"/>
+                    <Entry x:Name="etMail" Placeholder="ejemplo@mail.com" Margin="5"/>
+                    <Entry x:Name="etPassword" Placeholder="Contraseña..." IsPassword="True" Margin="5"/>
 
                     <Button Clicked="OnLoginClicked"
                             Text="Iniciar Sesión"
+                            Padding="5"
+                            Margin="5"/>
+
+                    <Button Clicked="OnCrearClicked"
+                            Text="Crear Cuenta"
                             Padding="5"
                             Margin="5"/>
                 </VerticalStackLayout>
